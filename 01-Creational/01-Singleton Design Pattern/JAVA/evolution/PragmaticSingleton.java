@@ -3,39 +3,46 @@ package evolution;
 import java.io.Serializable;
 
 /**
- * <h1>Pragmatic Singleton (SDE-2+ Level)</h1>
+ * <h1>01 - Singleton: The "Global State" Manager (SDE-2+ Level)</h1>
  * 
- * This class demonstrates the "Production Grade" way to write a non-enum Singleton.
- * While Enums are preferred (Stage 4), you may be forced to use a Class if you 
- * need to extend another class or have complex initialization logic.
+ * <b>Scenario:</b> You are building a <b>GlobalConfigurationManager</b>. 
+ * It loads settings from an S3 bucket or vault on startup. Re-loading this 
+ * for every request would crash the system under 10k concurrent users. 
+ * You need exactly ONE instance.
  * 
- * Key Protections Included:
- * 1. Double-Checked Locking (Performance + Thread Safety)
- * 2. Volatile Keyword (Prevents instruction reordering)
- * 3. Reflection Protection (Throws exception if constructor called twice)
- * 4. Serialization Protection (readResolve)
- * 5. Cloning Protection (Override clone)
+ * <b>Senior SDE-2 Insights:</b>
+ * 1. <b>Testability Trap:</b> Manual singletons are hard to mock. In production, 
+ *    use Dependency Injection (Spring @Bean) to manage the singleton lifecycle.
+ * 2. <b>Double-Checked Locking:</b> Optimized for performance (no sync after init).
+ * 3. <b>Volatile:</b> Prevents "Instruction Reordering" where a thread sees 
+ *    a non-null but partially initialized object.
+ * 
+ * <b>Edge Cases Handled:</b>
+ * - <b>Multi-threading:</b> Race conditions on first access.
+ * - <b>Reflection:</b> Malicious code calling private constructor.
+ * - <b>Serialization:</b> Creating new instances during round-trips.
+ * - <b>Cloning:</b> Deep-copying the singleton object.
  */
 public class PragmaticSingleton implements Serializable, Cloneable {
 
     private static final long serialVersionUID = 1L;
 
-    // 1. Volatile is CRITICAL for double-checked locking
+    // --- [INTERVIEW_MVP] (Atomic Reference + Thread Safety) ---
     private static volatile PragmaticSingleton instance;
 
     private PragmaticSingleton() {
-        // 2. REFLECTION PROTECTION
-        // Even if someone uses Constructor.setAccessible(true), this prevents a 2nd instance
+        // --- [PRODUCTION_ENHANCEMENT] (Reflection Guard) ---
         if (instance != null) {
-            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+            throw new RuntimeException("Violation: Constructor called on Singleton.");
         }
-        System.out.println("✅ PragmaticSingleton initialized with full protections.");
+        // Load heavy config logic here
     }
 
     public static PragmaticSingleton getInstance() {
-        if (instance == null) { // 1st check
+        // Double-Checked Locking Pattern
+        if (instance == null) { // Check 1: No locking for 99.9% of calls
             synchronized (PragmaticSingleton.class) {
-                if (instance == null) { // 2nd check
+                if (instance == null) { // Check 2: Confirm no other thread created it
                     instance = new PragmaticSingleton();
                 }
             }
@@ -43,26 +50,18 @@ public class PragmaticSingleton implements Serializable, Cloneable {
         return instance;
     }
 
-    /**
-     * 3. SERIALIZATION PROTECTION
-     * Without this, deserializing a Singleton creates a NEW instance.
-     * The JVM calls this method during deserialization if it exists.
-     */
-    protected Object readResolve() {
-        return getInstance();
-    }
+    // --- [PRODUCTION_ENHANCEMENT] (Serialization & Cloning Guards) ---
+    
+    /** Ensures the same instance is returned after deserialization. */
+    protected Object readResolve() { return getInstance(); }
 
-    /**
-     * 4. CLONING PROTECTION
-     * Prevents creating a copy of the singleton via Object.clone()
-     */
+    /** Prevents the creation of a duplicate via .clone(). */
     @Override
     protected Object clone() throws CloneNotSupportedException {
-        throw new CloneNotSupportedException("Cloning of Singleton is not allowed");
+        throw new CloneNotSupportedException("Singleton cannot be cloned.");
     }
 
-    // Business Logic
-    public void doWork() {
-        System.out.println("Working...");
+    public void logStatus() {
+        System.out.println("✅ Global Config active and protected.");
     }
 }

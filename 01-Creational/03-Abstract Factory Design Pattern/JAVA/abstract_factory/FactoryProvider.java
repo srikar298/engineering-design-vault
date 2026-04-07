@@ -19,8 +19,7 @@ import java.util.Optional;
 public class FactoryProvider {
 
     /**
-     * Picks the right factory based on the OS or configuration.
-     * This is a "Pragmatic" implementation that simplifies client usage.
+     * --- [INTERVIEW_MVP] (Simple Factory of Factories) ---
      */
     public static Optional<IGUIFactory> getFactory(String osType) {
         if (osType == null) return Optional.empty();
@@ -29,10 +28,9 @@ public class FactoryProvider {
             case "windows":
                 return Optional.of(new WindowsFactory());
             case "mac":
-            case "macos":
                 return Optional.of(new MacFactory());
             default:
-                // Log warning and return empty/default
+                // --- [PRODUCTION_ENHANCEMENT] (Graceful Error Handling & Logging) ---
                 System.err.println("Unsupported OS: " + osType);
                 return Optional.empty();
         }

@@ -16,6 +16,33 @@ When a senior candidate discusses creational patterns, they MUST demonstrate awa
 
 ---
 
+## ⚡ Senior Synergy: How Patterns Stack
+
+In enterprise systems (like Spring or Kubernetes), patterns are never solo. Use these combinations to impress your interviewer:
+
+1.  **Singleton + Registry:** The foundation of **Spring IoC**. A single registry (Singleton) that holds and manages all other beans (Registry Factory).
+2.  **Abstract Factory + Singleton:** One platform-specific factory (Mac/Windows) that is shared globally across the app.
+3.  **Builder + Prototype:** Use a Builder to create a complex "Master Archetype," then use Prototype to clone it 1,000 times for performance.
+4.  **Factory Method + Template Method:** The base class defines the workflow, but the Factory Method allows subclasses to decide *what* object is used in that workflow.
+
+---
+
+## ⏱️ Interview Strategy: The 30-Minute Target
+
+In a 45-min interview, you have ~30 mins to code. **Speed + Working Solution = Success.**
+
+1.  **Phase 1: [INTERVIEW_MVP] (0-15 mins)**
+    *   Focus on **Interfaces** and the core pattern structure.
+    *   Goal: Get a **Compilable and Runnable** solution that covers the main requirements.
+    *   *Why?* Submitting early shows confidence and leaves time for the "Senior" discussion.
+
+2.  **Phase 2: [PRODUCTION_ENHANCEMENT] (15-30 mins)**
+    *   Add **Thread Safety** (e.g., `volatile`, `synchronized`).
+    *   Add **Error Handling** (e.g., throw `IllegalArgumentException` instead of returning null).
+    *   *Why?* This is where you demonstrate SDE-2+ maturity.
+
+---
+
 ## 📈 Creational Patterns: Numerical Order Analysis
 
 | # | Pattern | Pragmatic Use-Case | 🏗️ Senior "Strong Hire" Insight |
@@ -25,7 +52,8 @@ When a senior candidate discusses creational patterns, they MUST demonstrate awa
 | **03** | **Abstract Factory** | **Suites of Related Products** (e.g., UI Themes, Multi-DB Connectors). | *"The goal isn't just 'creation'; it is **Consistency Enforcement**. It makes adding new families easy but adding new product types very rigid."* |
 | **04** | **Builder** | **Objects with >3 Optional Fields** or complex validation. | *"Replace **Telescoping Constructors** and ensure **Immutability**. Perform all cross-field validation in the `.build()` method before the object is 'born'."* |
 | **05** | **Prototype** | **Expensive Object Creation** (e.g., objects requiring DB/Network calls). | *"Use it as a performance cache for pre-configured objects. **Avoid Java's `Cloneable`**; use **Copy Constructors** or **Serialization** for a safe deep-copy."* |
-| **06** | **Simple Factory** | **The '80% Solution'** for centralizing basic creation logic. | *"Start here. Don't over-engineer to a full Factory Method unless you actually need polymorphism. **Fail-Fast** by throwing exceptions for invalid types."* |
+| **07** | **Simple Factory** | **The '80% Solution'** for centralizing basic creation logic. | *"Start here. Don't over-engineer to a full Factory Method unless you actually need polymorphism."* |
+| **08** | **Object Pool** | **Expensive, Limited Resources** (DB Connections, Sockets). | *"Use a BlockingQueue to manage a pool of pre-warmed resources. It's the key to scaling 10k users against a limited DB."* |
 
 ---
 

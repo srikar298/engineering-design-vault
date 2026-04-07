@@ -14,7 +14,7 @@ import java.util.Map;
  * 2. Unlike constructors, they don't have to create a NEW object (caching).
  * 3. Unlike constructors, they can return any SUBTYPE of their return type.
  */
-public class UserBasic {
+class UserBasic {
 
     private final String name;
     private final String role;

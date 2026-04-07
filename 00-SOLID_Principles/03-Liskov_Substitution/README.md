@@ -120,6 +120,70 @@ They are partners. Many LSP violations (like Ostrich forced to implement `fly()`
 
 ---
 
+## 🚀 SDE-2+ Pragmatic Perspective: The "Behavioral" Contract
+
+**LSP (Liskov Substitution Principle)** is about **Correctness**.
+- **The Core Rule:** A subclass should not just "be a" subtype of its parent; it must **behave** like its parent in every situation the parent promised.
+
+### 🏗️ Why it matters for Scaling (10k+ Concurrency)
+In your experience as a Founding Engineer:
+1.  **Program Correctness:** If you have a `NotificationService` that takes a `Channel` object, you expect every `Channel` to "send" the message. If one channel (like `ArchiveChannel`) throws an `UnsupportedOperationException`, it crashes your background processing loop for 10k users. That is an LSP violation.
+2.  **Trustworthy Abstractions:** LSP ensures that when you write code against an interface, you don't need to check `instanceof` to know how a specific subclass will behave. Checking `instanceof` is a "Code Smell" that your abstractions are broken.
+
+---
+
+## 🎓 Interview Tips: Creating "Strong Hire" Impact
+
+### 1. "Pre-conditions & Post-conditions"
+*   **What to say:** *"LSP is defined by three rules: 
+    1. Don't strengthen **Pre-conditions** (don't demand more than the parent).
+    2. Don't weaken **Post-conditions** (don't promise less than the parent).
+    3. Maintain **Invariants** (the rules that must always be true)."*
+
+### 2. "The square/rectangle problem"
+*   **What to say:** *"The classic Square/Rectangle example isn't about geometry. It's about **Invariants**. A Rectangle allows you to change width and height independently. A Square forces them to be the same. By making Square a subtype of Rectangle, you break the Rectangle's 'Independent Dimensions' invariant."*
+
+### 3. "Composition over Inheritance"
+*   **What to say:** *"When I see an LSP violation, it usually means I'm using **Inheritance** for code reuse when I should have used **Composition**. If a subclass doesn't share the same behavioral contract as the parent, it shouldn't be a subclass."*
+
+---
+
+## ⚠️ Edge Cases & Pitfalls
+*   **Silent Failures:** If a subclass returns `null` or an empty value where the parent promised a result, it weakens the post-condition.
+*   **Strengthening Rules:** If your `AdvancedUser` requires a `token` to login but the base `User` only requires a `password`, you've strengthened the pre-condition, breaking LSP.
+
+---
+
+## 🌍 The Polyglot Perspective
+
+### 🟢 Node/TS (Founding Engineer Context)
+In TS, LSP is enforced by the **Type System**, but behavior is still up to you.
+```typescript
+interface Storage {
+    save(id: string, data: any): void;
+}
+
+class ReadOnlyStorage implements Storage {
+    save(id: string, data: any) {
+        // ❌ LSP VIOLATION: Subtype breaks the promise of the interface
+        throw new Error("Read-only");
+    }
+}
+```
+In a Node app handling 10k users, this `throw` would crash your event loop if not caught everywhere.
+
+### 🔵 Golang
+In Go, LSP is very natural. Because interfaces are implicit, if your struct doesn't behave like the interface expects, it simply **won't compile** as an implementation of that interface. Go's design makes it very hard to accidentally violate LSP at the interface level.
+
+---
+
+## ✅ SDE-2+ Readiness Check
+*   [ ] Can you define LSP using "Pre-conditions" and "Post-conditions"?
+*   [ ] Why is `instanceof` often a sign of an LSP violation?
+*   [ ] How does the "Square/Rectangle" problem translate to a real-world "Account" or "Storage" scenario?
+
+---
+
 ## 📚 Further Reading / Patterns Linked
 - LSP violations are best fixed by applying **ISP** (Interface Segregation) to split bloated hierarchies.
 - The covariant return type rule is what enables type-safe **Factory Method Pattern** overrides in subclasses.

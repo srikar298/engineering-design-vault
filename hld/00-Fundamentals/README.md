@@ -20,14 +20,13 @@ These define the quality attributes of the system.
 
 ---
 
-## ⚖️ 2. Availability vs. Reliability <a name="availability"></a>
+## ⚖️ 2. SLIs, SLOs, and SLAs <a name="availability"></a>
 
 | Metric | Definition | Focus |
 | :--- | :--- | :--- |
-| **Availability** | % of time the system is UP. | Uptime, Redundancy, Failover. |
-| **Reliability** | Probability the system performs its function without failure. | Correctness, Data Integrity, Bug-free code. |
-
-*Senior Signal:* "A system can be available (UP) but unreliable (returning incorrect results due to a bug)."
+| **SLI** (Indicator) | The actual metric. | "Latency is 150ms", "Error rate is 0.1%". |
+| **SLO** (Objective) | The target goal. | "99% of requests must be < 200ms". |
+| **SLA** (Agreement) | The legal contract. | "If SLO is missed, we pay a penalty." |
 
 ---
 
@@ -36,7 +35,15 @@ These define the quality attributes of the system.
 - **Latency**: The time it takes for a single request to be processed (measured in `ms`).
 - **Throughput**: The number of requests processed per unit of time (measured in `RPS`).
 
-*The Trade-off:* Improving throughput (e.g., batching requests) often increases latency for individual requests.
+### The Latency Budget
+A "Strong Hire" candidate calculates how much time each component is allowed to take.
+*   **Total Budget**: 500ms
+*   **DNS + Network**: 100ms
+*   **API Gateway**: 20ms
+*   **Service Logic**: 150ms
+*   **DB Query**: 100ms
+*   **Cache Check**: 5ms
+*   **Remaining**: 125ms (Safety buffer)
 
 ---
 

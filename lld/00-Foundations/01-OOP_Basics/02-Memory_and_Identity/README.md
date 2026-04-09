@@ -12,6 +12,9 @@
 ### What is an Object?
 > An **Object** is a **runtime instance** of a class — the actual, physical allocation of memory on the Heap that holds a specific set of state values. `new ClassName()` is the instruction that brings an object from blueprint into existence.
 
+> [!TIP]
+> **Deep Dive:** Want to understand the technical difference between Compile-time (Class) and Run-time (Object)? Check out the [Compile-time vs. Run-time Deep Dive](../../../.gemini/antigravity/brain/bec5ffb1-c26c-4cdf-b9e7-43a240fde931/compiletime_vs_runtime_oop.md).
+
 ```java
 // CLASS — the blueprint. Zero bytes allocated on Heap yet.
 class Car {
@@ -113,6 +116,10 @@ If you fetch a `UserProfile` from a database and store it in an in-memory `HashM
 ### Q1: "Is Java Pass-by-Reference or Pass-by-Value?"
 **The Senior Answer:**
 Java is **strictly Pass-by-Value**. However, the "value" being passed when you provide an object to a method is **the copy of the reference (the memory pointer)**. 
+
+> [!TIP]
+> **Deep Dive:** This is a common point of confusion. For a full breakdown with the **Remote Control Analogy**, see the [Pass-by-Value vs. Pass-by-Reference Deep Dive](../../../.gemini/antigravity/brain/bec5ffb1-c26c-4cdf-b9e7-43a240fde931/pass_by_value_vs_reference.md).
+
 1.  I *can* change the inner state of `myPhone` (e.g., `phone.setBattery(10)`) because my copied remote control still points to the same TV.
 2.  I *cannot* reassign the caller's original variable to a completely new object (e.g., `phone = new Smartphone()`) because I only have a copy of the pointer.
 

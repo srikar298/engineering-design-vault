@@ -49,6 +49,8 @@ If the interviewer allows Copilot, they are watching your **Architectural Direct
 - [ ] Do you know how to build a **Rate Limiter** for LLM Tokens?
 - [ ] Can you explain **Double Dispatch** (Visitor) in the context of a code analyzer?
 - [ ] Have you practiced a **Machine Coding** challenge with a 90-min timer?
+- [x] Explored the **[06-Addons: Senior LLD Extensions](./06-Addons/)** (Rule Engine, Distributed Lock, Plugin SPI, AI Patterns, Distributed Patterns).
+- [ ] Documented your private experience using the **[Architectural Case Study Template](./Architectural-Case-Studies/10K-CONCURRENT-USERS-TEMPLATE.md)**.
 
 ---
 

@@ -16,7 +16,7 @@ Master the architecture of **Distributed Systems** and **Scalable Platforms**.
 - Load Balancing & Caching Strategies.
 - Database Sharding & Replication.
 - Microservices & Event-Driven Architectures.
-- [HLD Mastery Roadmap](./hld/README.md).
+- [HLD SDE-2+ Master Guide](./hld/2025_HLD_SDE2_MASTER_GUIDE.md).
 
 ---
 

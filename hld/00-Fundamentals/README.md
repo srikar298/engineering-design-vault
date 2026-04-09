@@ -47,10 +47,38 @@ A "Strong Hire" candidate calculates how much time each component is allowed to 
 
 ---
 
-## 🧮 4. Capacity Estimation (Back-of-the-Envelope) <a name="capacity"></a>
+### 🧮 4. Capacity Estimation (Back-of-the-Envelope) <a name="capacity"></a>
 
-### Storage Estimation
-...
+In an interview, don't guess—calculate. Use these three pillars to justify your architecture.
+
+#### A. Storage Estimation
+*   **Formula:** `(Average object size) * (Total objects over 5 years)`
+*   **Example (Twitter):**
+    *   100M Daily Active Users (DAU).
+    *   1 tweet per day = 100M tweets/day.
+    *   Tweet size: Header (20B) + Text (140B) + Metadata (40B) ≈ 200 Bytes.
+    *   **Daily Storage:** 100M * 200B = **20 GB/day**.
+    *   **5-Year Storage:** 20 GB * 365 * 5 ≈ **36.5 TB**.
+
+#### B. Throughput (RPS) Estimation
+*   **Formula:** `(Requests per day) / 86400`
+*   **Example:** 100M DAU making 10 requests/day = 1 Billion requests/day.
+    *   **Average RPS:** 1,000,000,000 / 86,400 ≈ **12,000 RPS**.
+    *   **Peak RPS:** 12,000 * 2 (safety factor) = **24,000 RPS**.
+
+#### C. Bandwidth Estimation
+*   **Formula:** `(RPS) * (Average object size)`
+*   **Example:** 12,000 RPS * 200 Bytes = **2.4 MB/s**.
+
+---
+
+## ⚖️ 5. Reliability vs. Availability: The Subtle Difference
+A "Senior" candidate knows the difference between these two often-confused terms.
+
+*   **Reliability:** The probability that the system will perform its intended function without failure for a specified period of time. (Can I trust the data is safe?)
+*   **Availability:** The percentage of time the system is operational and accessible. (Can I reach the server?)
+
+**The Trade-off:** "A system can be highly available but unreliable (e.g., returning stale or wrong data). Conversely, a system can be reliable but unavailable (e.g., a bank DB taking itself offline to ensure a transaction is perfectly committed). For our Payment Service, we prioritize **Reliability**; for our News Feed, we prioritize **Availability**."
 
 ---
 

@@ -20,9 +20,39 @@ Choosing NoSQL "for speed" without analyzing the access pattern is a red flag. I
 ## 🚀 The SDE-3 Edge: Storage Engines (DDIA Mastery)
 If the interviewer asks: *"How does the DB actually store data on disk?"*
 
-| Engine Type | Data Structure | Best For | Examples |
-| :--- | :--- | :--- | :--- |
 | **B-Trees** | Balanced Tree. Updates in-place. | Read-heavy workloads. Strong ACID. | PostgreSQL, MySQL. |
 | **LSM-Trees** | Append-only Logs + Merging. | Write-heavy workloads. Massive throughput. | Cassandra, DynamoDB, BigTable. |
 
-**The Senior Signal:** "While B-Trees are great for standard relational data, we chose an LSM-tree based database for our write-heavy audit logs because it converts random writes into fast sequential I/O, avoiding disk seek latency."
+---
+
+## 🛠️ 2. Indexing: The Multipliers of Speed
+
+| Index Type | How it works | Best For |
+| :--- | :--- | :--- |
+| **B-Tree** | Sorted balanced tree. | Range queries, exact matches, sorting. (Default). |
+| **Hash Index** | Converts value to a hash. | $O(1)$ exact matches only. No range queries. |
+| **GIN (Inverted)** | Maps values to a list of IDs. | Full-text search, JSONB fields in Postgres. |
+
+**The Senior Signal:** "Indices aren't free. They speed up reads but slow down writes (Write Amplification) because every write must update the index. We will only index fields used in `WHERE` clauses with high selectivity."
+
+---
+
+## 🚀 The SDE-3 Edge: Database Scaling Patterns
+
+When a single DB instance maxes out its CPU/IO, you have three options:
+
+| Strategy | Complexity | Best For |
+| :--- | :--- | :--- |
+| **Read Replicas** | Low | Read-heavy apps (90% reads). Async sync lag is the trade-off. |
+| **Database Sharding** | Very High | Massive datasets that don't fit on one disk. Requires a partition key. |
+| **Federation** | Medium | Splitting DB by domain (e.g., User DB, Order DB). |
+
+### The Sharding Trap
+How do you shard?
+*   **Key-based (Hash):** `shard = hash(key) % N`. Good distribution, but adding a shard is a nightmare (reshuffling).
+*   **Range-based:** `shard1 = User A-M, shard2 = User N-Z`. Good for range queries, but leads to **Hot Spots** (e.g., many users starting with 'A').
+*   **Directory-based:** A lookup table stores where each key lives. Most flexible but adds one network hop.
+
+**Senior Signal:** "We chose **Hashed Sharding** with **Consistent Hashing** (via a middleware like Vitess) to avoid the reshuffling cost when we inevitably grow from 10 to 20 shards next year."
+
+---

@@ -17,13 +17,44 @@ In a microservices architecture, a single business workflow (e.g., Booking a tri
 2PC is notoriously anti-scalable. It is a blocking protocol. If one node is slow, the entire transaction blocks. It is rarely used in modern microservices.
 *Better Answer:* "2PC doesn't scale well for high-throughput microservices. I will use the Saga Pattern to maintain eventual consistency and high availability."
 
-## 🚀 The SDE-3 Edge: Saga Orchestration vs Choreography
-If the interviewer asks: *"How do you coordinate a Saga for a complex 5-step checkout process?"*
+## 🚀 3. Saga: Choreography vs. Orchestration
 
-**The SDE-3 Solution:**
-1. **Choreography (Event-driven):** Service A emits an event, Service B listens and reacts. 
-    *   *Pros:* Decoupled.
-    *   *Cons:* Hard to track the overall status. Debugging is a nightmare ("Where did the transaction get stuck?").
-2. **Orchestration (Command-driven):** A central "Saga Orchestrator" service tells each service what to do.
-    *   *Pros:* Complete visibility into the transaction state. Easy to handle rollbacks.
-    *   *Cons:* Introduces a single point of failure (though the Orchestrator itself can be highly available). For complex workflows (like 5 steps), Orchestration is almost always preferred by seniors.
+### Choreography (Event-based)
+```mermaid
+sequenceDiagram
+    participant O as Order Service
+    participant P as Payment Service
+    participant I as Inventory Service
+    
+    O->>P: OrderCreated Event
+    P->>I: PaymentSuccess Event
+    I->>O: InventoryReserved Event
+```
+
+### Orchestration (Command-based)
+```mermaid
+sequenceDiagram
+    participant O as Order Service
+    participant S as Saga Orchestrator
+    participant P as Payment Service
+    participant I as Inventory Service
+    
+    O-->>S: Start Saga
+    S->>P: Execute Payment
+    P-->>S: Success
+    S->>I: Reserve Inventory
+    I-->>S: Success
+    S->>O: Order Finalized
+```
+
+---
+
+## 🛠️ 4. The TCC Pattern (Try-Confirm-Cancel)
+For scenarios where you need more control than a Saga but can't afford 2PC locks.
+1.  **Try**: Reserve resources (e.g., "Soft-lock" an item).
+2.  **Confirm**: Finalize the reservation (Hard-commit).
+3.  **Cancel**: Release the soft-lock if anything fails.
+
+**Senior Signal:** "We used the **Saga Orchestrator** pattern for our checkout flow because it provides a centralized state machine that makes it trivial to handle complex, multi-service rollbacks and monitoring, which is a nightmare with pure choreography."
+
+---

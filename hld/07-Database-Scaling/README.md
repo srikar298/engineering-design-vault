@@ -24,10 +24,28 @@ In an SDE-2+ interview, if you mention Read Replicas, you **MUST** mention how t
 
 ---
 
-## 🚫 4. Sharding (Partitioning) & The "Hot Key" Problem
+## 🚫 4. Sharding (Partitioning)
 
-... [Existing Sharding Table] ...
+When your writes exceed the capacity of a single Master, you must **Shard** (Partition) your data.
+
+| Sharding Strategy | How it works | Pros | Cons |
+| :--- | :--- | :--- | :--- |
+| **Key-based (Hash)** | `shard = hash(user_id) % N` | Uniform distribution. No hot-spots (usually). | Adding a shard is hard (**Resharding**). No range queries. |
+| **Range-based** | `shard 1: A-M, shard 2: N-Z` | Allows range queries (e.g., "Find all users starting with B"). | **Hot Spots**. If many users start with 'A', Shard 1 crashes while Shard 2 is idle. |
+| **Directory-based** | A lookup table stores `user_id -> shard_ip`. | Extremely flexible. Moving data is easy. | The Lookup Table becomes a **Single Point of Failure** and adds a network hop. |
+
+---
 
 ## 🚀 5. The SDE-3 Edge: The Celebrity Problem (Hot Keys)
+If the interviewer asks: *"What if Justin Bieber (100M followers) posts a tweet? Your User-ID shard will be crushed while others are empty."*
 
-... [Existing Hot Key Section] ...
+**The Senior Solution:**
+1. **Adaptive Sharding:** For extremely hot keys, further split that specific key across multiple shards. Instead of just `JustinBieber`, use `JustinBieber_1`, `JustinBieber_2`, etc.
+2. **Caching (The Hybrid Approach):**
+    - **Fan-out on write** for regular users (push to their feed).
+    - **Fan-out on read** for celebrities. When a user logs in, the app queries the "Celebrity Cache" separately.
+3. **Write Path Isolation:** Use a dedicated, higher-provisioned message queue or database cluster for ultra-high-volume users.
+
+**Senior Signal:** "We don't solve the celebrity problem at the database layer alone. We use a **tiered caching strategy** and treat the top 0.1% of users as a 'Special Case' in our application logic to prevent them from degrading the experience for the other 99.9%."
+
+---

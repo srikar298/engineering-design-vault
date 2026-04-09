@@ -25,9 +25,57 @@ Instead of services calling each other directly (Request-Response), they communi
 - **Queries**: Reads. Optimized for performance (often uses a separate Read DB/Cache).
 
 ### Saga Pattern
-How to handle transactions across microservices.
-- **Choreography**: Services exchange events without a central controller.
-- **Orchestration**: A central "Saga Manager" coordinates the workflow.
+How to handle distributed transactions without 2PC (Two-Phase Commit).
+
+| Feature | Choreography (Event-based) | Orchestration (Command-based) |
+| :--- | :--- | :--- |
+| **Logic** | Distributed across services. | Centralized in an "Orchestrator". |
+| **Coupling** | Low (Services just listen to events). | High (Orchestrator knows about all services). |
+| **Complexity** | High (Hard to track the whole flow). | Lower (Easy to see the state). |
+| **Use Case** | Simple workflows. | Complex, multi-step business logic. |
+
+#### Example: Food Delivery Saga (Mermaid)
+```mermaid
+sequenceDiagram
+    participant O as Order Service
+    participant P as Payment Service
+    participant I as Inventory Service
+    
+    O->>O: Create Order (PENDING)
+    O->>P: Process Payment
+    alt Payment Success
+        P->>O: PaymentSuccess Event
+        O->>I: Reserve Items
+        alt Inventory Success
+            I->>O: ItemsReserved Event
+            O->>O: Approve Order (SUCCESS)
+        else Inventory Fail
+            I->>O: ItemsUnavailable Event
+            O->>P: Refund Payment (Compensating Trans)
+            O->>O: Cancel Order (FAIL)
+        end
+    else Payment Fail
+        P->>O: PaymentFailed Event
+        O->>O: Cancel Order (FAIL)
+    end
+```
+
+---
+
+## 🚀 The SDE-3 Edge: The Transactional Outbox Pattern
+
+**The Problem:** You update the Database and then send a Message to Kafka. If the message send fails (network blip) but the DB commit succeeds, your system is **Inconsistent**.
+
+**The SDE-3 Solution:**
+1. Instead of sending directly to Kafka, you write the message into an `OUTBOX` table in the *same* database transaction as your business logic.
+2. A separate **Message Relayer** (or CDC tool like Debezium) polls the `OUTBOX` table and publishes to Kafka.
+3. This guarantees **At-Least-Once Delivery** and ensures the DB and Message Broker are always in sync.
+
+---
+
+## 🚀 The SDE-4/Architect Signal: Cell-Based Architecture
+If asked how to scale a social network to 100M+ users without a single point of failure:
+"We use **Cell-Based Architecture**. We partition our entire stack (LB, Web, DB) into independent 'Cells' (e.g., 1M users per cell). If Cell A goes down, it has **zero impact** on Cell B. This limits the 'Blast Radius' of any failure."
 
 ---
 

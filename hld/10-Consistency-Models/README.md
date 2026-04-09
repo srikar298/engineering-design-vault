@@ -37,12 +37,29 @@ In a high-concurrency system (10k+ users), multiple transactions happen simultan
 
 ---
 
-## 🚀 The SDE-3 Edge: PACELC Theorem
+## 🚀 The SDE-3 Edge: PACELC & Quorums
+
+### 1. PACELC Theorem
 If the interviewer asks: *"CAP theorem only applies during network failures (Partitions). What about normal operation?"*
 
-**The SDE-3 Solution:**
-Introduce the **PACELC Theorem**:
+Introduce **PACELC**:
 *   If there is a **P**artition, you must choose between **A**vailability and **C**onsistency.
-*   **E**lse (during normal operation), you must choose between **L**atency and **C**onsistency.
+*   **E**lse (normal operation), you must choose between **L**atency and **C**onsistency.
 
-For example, DynamoDB is typically **PA/EL**: In a partition, it chooses Availability. In normal operation, it chooses low Latency over strong Consistency (unless explicitly configured otherwise). This demonstrates profound, architect-level understanding of distributed data stores.
+### 2. Tuned Consistency (Quorum Logic)
+How do databases like Cassandra or DynamoDB let you choose your consistency? They use **Quorums**.
+
+*   **N**: Number of replicas.
+*   **W**: Number of nodes that must acknowledge a write.
+*   **R**: Number of nodes that must respond to a read.
+
+| Configuration | Rule | Strength | Use Case |
+| :--- | :--- | :--- | :--- |
+| **Strong Consistency** | `R + W > N` | High. Read is guaranteed to see the latest write. | Financial data. |
+| **Eventual Consistency** | `R + W <= N` | Low. Stale reads are possible but latency is lower. | Social media comments. |
+| **Write-Heavy Opt.** | `W = N, R = 1` | High Write Durability. | Logging, Audit trails. |
+| **Read-Heavy Opt.** | `W = 1, R = N` | High Read Consistency. | Reference data, Configuration. |
+
+**The Senior Signal:** "We configure our cluster for `R=2, W=2, N=3`. This gives us **Quorum Consistency**, allowing us to tolerate the failure of any single node without losing data or the ability to perform strongly consistent reads/writes."
+
+---

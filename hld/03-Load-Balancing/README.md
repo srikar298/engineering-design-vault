@@ -12,16 +12,33 @@ A Load Balancer distributes incoming network traffic across a group of backend s
 | **Routing Flexibility** | Low (Blind forwarding) | High (Can route based on `/api` vs `/images`) |
 | **Use Case** | High-throughput TCP streams (Gaming, Video) | Web Applications, Microservice routing |
 
-## 🚫 The Interview Trap
-**"I will just use Round Robin."**
-Round Robin is a naive algorithm. In a real SDE-2 interview, if you have long-lived connections (like WebSockets) or uneven request sizes, Round Robin leads to **"Hot Spots"** (one server getting overwhelmed). 
-*Better Answer:* "I'll use **Least Connections** or **Least Response Time** routing for more even distribution."
+---
 
-## 🚀 The SDE-3 Edge: Consistent Hashing
-If the interviewer asks: *"How do you route a user to the exact same server every time (Session Stickiness) without storing session state centrally?"*
+## 🛠️ 2. Load Balancing Algorithms
 
-Do not say "Sticky Sessions via Cookies" (it breaks when servers scale up/down). 
-Instead, talk about **Consistent Hashing**:
-1. Map both the Servers and the User IDs (or IP) to a logical "Hash Ring".
-2. A user is routed to the first server found moving clockwise on the ring.
-3. If a server crashes, only a fraction of the users are re-routed, instead of a complete reshuffle. This is the foundation of distributed caches and databases like DynamoDB.
+| Algorithm | How it Works | Best For |
+| :--- | :--- | :--- |
+| **Round Robin** | Sequential distribution. | Servers with identical specs and short requests. |
+| **Least Connections** | Routes to the server with the fewest active tasks. | Long-lived connections (WebSockets, DB streams). |
+| **Weighted WRR** | Round Robin but accounts for server capacity. | CPU/RAM-heavy workloads with mixed server power. |
+| **IP Hash** | Hashing the client's IP to assign a server. | Basic session stickiness. |
+
+---
+
+## 🚀 The SDE-3 Edge: Advanced Consistent Hashing
+
+Traditional Hashing (e.g., `hash(key) % N`) fails when $N$ changes—adding or removing one server causes a massive reshuffle of data/sessions.
+
+**Consistent Hashing** solves this by mapping both servers and keys onto a circular hash ring ($0$ to $2^{32}-1$).
+
+### The Virtual Nodes Strategy
+A common mistake is drawing 3 points on a ring for 3 servers. If one server is more powerful or if the hash distribution is uneven, you get **Hot Spots**.
+
+**The Senior Solution:** "We implement **Virtual Nodes**. Each physical server is mapped to *multiple* points on the ring (e.g., Server A maps to A1, A2, A3). This ensures the load is distributed much more uniformly across the server pool and makes scaling up/down seamless."
+
+### Health Checks: The Silent Hero
+A Load Balancer is only as good as its awareness of the fleet.
+*   **Active Health Checks:** The LB periodically pings an `/health` endpoint on every server.
+*   **Passive Health Checks:** The LB monitors traffic results; if a server returns 500 errors for 5 consecutive requests, it is marked "Down".
+
+**Senior Signal:** "Our `/health` endpoint doesn't just return `200 OK`. it checks downstream dependencies (e.g., DB connection, Cache heart-beat). This prevents 'Zombie Servers' that are alive but can't serve requests."

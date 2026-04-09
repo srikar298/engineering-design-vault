@@ -16,14 +16,29 @@ Databases are great for structured data, but where do you store 5TB of user prof
 ---
 
 ## 🏗️ 3. How Object Storage Works (The Interview Blueprint)
-When you upload a file to S3:
-1.  **Metadata**: Stored in a fast K-V store (e.g., File name, Size, Owner, URL).
-2.  **Object Body**: Stored in a distributed file system (e.g., HDFS or proprietary clusters).
-3.  **Versioning**: Every write creates a new version instead of updating in-place (Immutable).
+
+An SDE-2 must explain the separation of control and data planes:
+1.  **Control Plane (Metadata)**: Stored in a fast, indexed database (e.g., RowID -> LocalPath Mapping).
+2.  **Data Plane (The Object)**: The raw bytes stored in a specialized cluster.
+
+### Handling Large Files (10k+ Concurrent Users)
+- **Multipart Uploads**: Split a 5GB video into 100MB chunks. Upload in parallel. If chunk #45 fails, you only retry chunk #45, not the whole 5GB.
+- **Pre-signed URLs**: Instead of the client uploading/downloading *through* your app server (consuming your precious bandwidth), the app server generates a temporary URL that allows the client to talk **directly to S3**.
 
 ---
 
-## 🚀 4. The SDE-3 Edge: Content Addressing & Deduplication
-If 1,000 users upload the exact same 5MB viral video, does your system store 5GB or 5MB?
-*   **The Solution:** Use **Content-Addressable Storage**. Hash the file content (e.g., SHA-256). The hash becomes the Object ID. If the hash already exists, just point the new user to the existing block.
-*   **Impact:** Massive cost savings and reduced network bandwidth for 10k+ concurrent users.
+## ❄️ 4. Cost Optimization: Storage Tiers
+A "Senior Signal" is mentioning that not all data is accessed equally.
+- **S3 Standard (Hot)**: High cost, instant access. (User avatars).
+- **S3 IA (Infrequent Access)**: Lower cost, slightly slower. (Logs from 1 week ago).
+- **S3 Glacier (Archive)**: Near-zero cost, hours to retrieve. (Accounting backups from 2 years ago).
+
+---
+
+## 🚀 5. The SDE-3 Edge: Content Addressing & Deduplication
+If 1,000 users upload the exact same 5MB viral video, don't store 5GB.
+**The Solution:** Use **Content-Addressable Storage**. Hash the file content (e.g., SHA-256). The hash becomes the Object ID. If the hash already exists, just point the new user to the existing block.
+
+**Senior Signal:** "By moving to **Pre-signed URLs**, we offloaded 90% of our ingress/egress traffic from our EC2 fleet to the storage provider, reducing our infrastructure costs by 40% and improving upload speeds for global users."
+
+---

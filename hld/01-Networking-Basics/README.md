@@ -17,8 +17,24 @@ Before a request ever hits your Load Balancer, it must traverse the public inter
 CDNs are designed for static assets (Images, CSS, JS), not dynamic API responses. 
 *Better Answer:* "I'll use a CDN to serve static frontend assets globally. For API responses, I'll use Redis internally or an API Gateway with edge-caching enabled if the data is highly cacheable."
 
-## 🚀 The SDE-3 Edge: DNS Resolution Architecture
+## 🚀 The SDE-3 Edge: Global Traffic Steering
+
+### 1. DNS Resolution Architecture
 When asked what happens when you type `google.com`, don't just say "It gets the IP." Mention the recursive steps:
 1. Browser Cache -> OS Cache -> Router Cache -> ISP Resolver.
 2. If missed: Root Server -> TLD Server (.com) -> Authoritative Name Server (Route53).
 3. Mention **DNS Routing Policies**: Latency-based routing, Geo-DNS, or Weighted routing for Multi-Region deployments.
+
+### 2. Anycast Routing
+How does a CDN provide one IP that routes to 100+ different countries?
+**The SDE-3 Answer:** "We use **IP Anycast**. The same IP address is announced from multiple locations using BGP (Border Gateway Protocol). The internet's routing infrastructure then automatically routes the user to the 'closest' PoP (Point of Presence) based on network hop count."
+
+### 3. CDN Invalidation Strategies
+Don't just mention CDNs; talk about how you manage them.
+*   **Purge (Hard Delete):** Telling the CDN to delete the object from its cache. Fast but expensive (causes a spike in origin traffic).
+*   **Versioning (File Hashing):** Changing the filename (e.g., `main.abcd123.js`). This is the **Gold Standard** because it's instant and safe.
+*   **TTL (Time-to-Live):** Letting the object expire naturally. Use for non-critical assets.
+
+**Senior Signal:** "For our high-traffic frontend, we use **immutable file hashing** and a long TTL (1 year). This guarantees that users always get the latest code without us ever having to trigger costly manual CDN purges."
+
+---

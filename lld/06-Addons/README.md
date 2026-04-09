@@ -56,6 +56,42 @@ This section contains "Expert Level" LLD patterns and architectural improvements
 
 ---
 
+## ⚡ Advanced Caching (HLD + LLD Parallel)
+
+### 11. [Thread-Safe LFU Cache](./11-LFU-Cache/)
+- **Patterns:** HashMap + LinkedHashSet + Frequency Sets.
+- **Why it matters:** A senior-level alternative to LRU. It tests your ability to handle $O(1)$ complexity using multiple synchronized data structures.
+
+### 12. [Resilient Cache Client](./12-Cache-Client/)
+- **Patterns:** Decorator + Strategy + Fallback.
+- **Why it matters:** In distributed systems, a cache is a network dependency. This implementation shows how to add reliability (Retries) and robustness (DB Fallbacks) using clean object-oriented decorators.
+
+### 13. [Local Cache Basics](./13-Local-Cache-Basics/)
+- **Patterns:** ConcurrentHashMap + Atomic Compute.
+- **Why it matters:** The starting point for all caching. It demonstrates why `ConcurrentHashMap` is preferred for high-concurrency environments and how to prevent local "Cache Stampedes" using atomic operations.
+
+---
+
+## 📘 DDIA Mastery (Distributed Systems Invariants)
+
+### 14. [Binary Serialization](./14-Binary-Serialization/)
+- **Concepts:** DDIA Chapter 4. JSON vs. Protobuf simulation.
+- **Why it matters:** For 10k+ concurrent users, the CPU and bandwidth cost of parsing JSON is a major bottleneck. This proves you understand data encoding efficiency.
+
+### 15. [Lamport Logical Clocks](./15-Lamport-Clocks/)
+- **Concepts:** DDIA Chapter 8. Total Ordering of Events.
+- **Why it matters:** Physical clocks drift. This implementation shows how to order events across multiple servers using logical timestamps instead of wall-clock time.
+
+### 16. [Version Vectors](./16-Version-Vectors/)
+- **Concepts:** DDIA Chapter 5. Multi-Leader Conflict Detection.
+- **Why it matters:** Essential for multi-region systems. This algorithm detects if two updates are "concurrent" or if one "happened-before" the other.
+
+### 17. [Distributed Leader Election](./17-Leader-Election/)
+- **Concepts:** DDIA Chapter 9. High Availability & Failover.
+- **Why it matters:** Demonstrates how a cluster of nodes automatically recovers when the Master crashes, ensuring zero downtime for your 10k users.
+
+---
+
 ## 💡 How to Use These
 1.  **Read the Code:** Each file contains `Senior SDE-2 Insights` and `Interview-MVP` sections.
 2.  **Understand the Trade-offs:** These patterns add complexity in exchange for flexibility and robustness. Be ready to explain *why* you would choose these over simpler alternatives.

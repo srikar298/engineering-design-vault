@@ -13,10 +13,9 @@ Master the art of writing **Clean, Scalable, and Testable Code**.
 
 ## 🌐 2. [High-Level Design (HLD)](./hld/)
 Master the architecture of **Distributed Systems** and **Scalable Platforms**.
-- Load Balancing & Caching Strategies.
-- Database Sharding & Replication.
-- Microservices & Event-Driven Architectures.
-- [HLD SDE-2+ Master Guide](./hld/2025_HLD_SDE2_MASTER_GUIDE.md).
+- [HLD Master Roadmap](./hld/HLD_MASTER_ROADMAP.md).
+- [2025 HLD SDE-2+ Master Guide](./hld/2025_HLD_SDE2_MASTER_GUIDE.md).
+- [System Design Delivery Framework](./hld/HLD_DELIVERY_FRAMEWORK.md).
 
 ---
 

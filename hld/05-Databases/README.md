@@ -17,9 +17,12 @@ Databases store system state. The fundamental choice is between Relational (SQL)
 Choosing NoSQL "for speed" without analyzing the access pattern is a red flag. If your application relies heavily on `JOIN` operations (e.g., an Order needs User, Payment, and Inventory data), doing this in NoSQL requires multiple network round-trips (Application-side joins), which is *slower* and error-prone.
 *Better Answer:* "The data is highly relational with strict consistency requirements, so PostgreSQL is the right choice. We will scale reads via read-replicas."
 
-## 🚀 The SDE-3 Edge: B-Trees vs. LSM Trees
-If the interviewer asks: *"Why is Cassandra better for write-heavy workloads than PostgreSQL?"*
+## 🚀 The SDE-3 Edge: Storage Engines (DDIA Mastery)
+If the interviewer asks: *"How does the DB actually store data on disk?"*
 
-Explain the underlying storage engine:
-1. **PostgreSQL uses B-Trees:** When you write, it must update the tree structure in-place on the disk (Random I/O), which is slow.
-2. **Cassandra uses LSM (Log-Structured Merge) Trees:** When you write, it simply appends the data to an in-memory structure (MemTable) and a sequential commit log. Sequential I/O is vastly faster than Random I/O. Later, data is flushed to disk in immutable segments (SSTables).
+| Engine Type | Data Structure | Best For | Examples |
+| :--- | :--- | :--- | :--- |
+| **B-Trees** | Balanced Tree. Updates in-place. | Read-heavy workloads. Strong ACID. | PostgreSQL, MySQL. |
+| **LSM-Trees** | Append-only Logs + Merging. | Write-heavy workloads. Massive throughput. | Cassandra, DynamoDB, BigTable. |
+
+**The Senior Signal:** "While B-Trees are great for standard relational data, we chose an LSM-tree based database for our write-heavy audit logs because it converts random writes into fast sequential I/O, avoiding disk seek latency."

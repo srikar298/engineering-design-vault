@@ -50,19 +50,18 @@ A "Strong Hire" candidate calculates how much time each component is allowed to 
 ## 🧮 4. Capacity Estimation (Back-of-the-Envelope) <a name="capacity"></a>
 
 ### Storage Estimation
-- `Total Storage = (Avg object size) * (Total objects) * (Replication Factor)`
-- *Example:* 100M tweets/day * 200 bytes/tweet * 365 days * 3 replicas ≈ **22 TB/year**.
-
-### Throughput (RPS) Estimation
-- `Avg RPS = (Daily Active Users * Avg requests/user) / 86,400 seconds`
-- `Peak RPS = Avg RPS * 2 (or 5)`
+...
 
 ---
 
-## 🚀 The SDE-2 Interview Tip
-When the interviewer says, "Design X," start by asking:
-1.  "What is the scale? How many DAU?"
-2.  "Is this read-heavy or write-heavy?"
-3.  "What is the target P99 latency?"
+## 🔢 5. Numbers Every Programmer Should Know (DDIA Edition)
+To do accurate math in an interview, you must know these approximate latencies:
 
-**Defining these constraints upfront shows you design based on data, not guesswork.**
+- **L1 Cache**: 0.5 ns
+- **L2 Cache**: 7 ns
+- **RAM**: 100 ns
+- **SSD Random Read**: 150,000 ns (0.15 ms)
+- **Disk Seek (HDD)**: 10,000,000 ns (10 ms)
+- **Send packet CA -> Netherlands**: 150 ms
+
+**The Senior Rule:** "Memory is fast, Disk is slow, and the Network is the bottleneck." Use this to justify why we use Redis (RAM) over DB queries (Disk) for high-traffic hot keys.

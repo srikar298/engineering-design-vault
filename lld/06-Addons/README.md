@@ -92,6 +92,22 @@ This section contains "Expert Level" LLD patterns and architectural improvements
 
 ---
 
+## 🏆 Top-Tier Industry Clones (Machine Coding)
+
+### 18. [Uber Task Scheduler](./18-Advanced-Task-Scheduler/)
+- **Concepts:** Concurrency + PriorityQueue + Delay Logic.
+- **Why it matters:** A classic problem asked at Uber/Amazon. It tests your ability to handle multi-threaded execution, recurring tasks, and precise timing without using basic loops.
+
+### 19. [Custom Logging Library](./19-Logging-Library/)
+- **Patterns:** Chain of Responsibility + Singleton + Strategy.
+- **Why it matters:** Mirrors the architecture of log4j. It proves you can design a complex utility used by millions of developers, focusing on extensibility and clean APIs.
+
+### 20. [Uber App LLD](./20-Uber-LLD/)
+- **Concepts:** Spatial Indexing + Atomic Concurrency + Pricing Strategy.
+- **Why it matters:** The ultimate SDE-2 test. It combines real-world requirements (finding nearby drivers) with senior-level constraints (surge pricing, race conditions).
+
+---
+
 ## 💡 How to Use These
 1.  **Read the Code:** Each file contains `Senior SDE-2 Insights` and `Interview-MVP` sections.
 2.  **Understand the Trade-offs:** These patterns add complexity in exchange for flexibility and robustness. Be ready to explain *why* you would choose these over simpler alternatives.

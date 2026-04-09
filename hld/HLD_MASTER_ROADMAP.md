@@ -17,7 +17,7 @@ The goal here is to speak the language of System Design.
 5.  **[Consistency Models](./10-Consistency-Models/)**: Strong vs Eventual consistency.
 6.  **[Latency vs Throughput](./00-Fundamentals/README.md#latency)**: Response time vs requests per unit time.
 7.  **[CAP & PACELC Theorems](./10-Consistency-Models/)**: The fundamental trade-offs of distributed data.
-8.  **[Capacity Estimation](./00-Fundamentals/README.md#capacity)**: Back-of-the-envelope math for storage, bandwidth, and CPU.
+8.  **[Capacity Estimation & Core Math](./00-Fundamentals/README.md#capacity)**: Back-of-the-envelope math and "Numbers Every Programmer Should Know."
 
 ---
 
@@ -26,13 +26,14 @@ The goal here is to speak the language of System Design.
 Understanding the tools in your toolbox and how they fail.
 
 1.  **[Networking & Infra](./01-Networking-Basics/)**: DNS, HTTP/HTTPS, CDN, TCP vs UDP.
-2.  **[Load Balancing](./03-Load-Balancing/)**: Algorithms, L4 vs L7, Consistent Hashing.
-3.  **[Databases Overview](./05-Databases/)**: SQL vs NoSQL, Indexing, Storage Engines (B-Trees vs LSM).
-4.  **[Database Scaling](./07-Database-Scaling/)**: Replication (Leader-Follower), Sharding, Quorums.
-5.  **[Caching Mastery](./04-Caching-Deep-Dive/)**: Write policies, Eviction, Thundering Herd, Multi-layer caching.
-6.  **[Messaging & Streams](./06-Message-Queues/)**: Pub-Sub, Kafka vs RabbitMQ.
-7.  **[File & Object Storage](./14-Object-Storage/)**: S3, HDFS, Blob Storage for media at scale.
-8.  **[API Gateway & Proxies](./13-Architectural-Patterns/README.md#gateway)**: Ingress, Auth, Rate Limiting.
+2.  **[API Design: gRPC vs. REST](./19-API-Design-gRPC-vs-REST/)**: Choosing the right communication protocol.
+3.  **[Load Balancing](./03-Load-Balancing/)**: Algorithms, L4 vs L7, Consistent Hashing.
+4.  **[Databases Overview](./05-Databases/)**: SQL vs NoSQL, Indexing, Storage Engines (B-Trees vs LSM).
+5.  **[Database Scaling](./07-Database-Scaling/)**: Replication (Leader-Follower), Sharding, Quorums.
+6.  **[Caching Mastery](./04-Caching-Deep-Dive/)**: Write policies, Eviction, Thundering Herd, Multi-layer caching.
+7.  **[Messaging & Streams](./06-Message-Queues/)**: Pub-Sub, Kafka vs RabbitMQ.
+8.  **[File & Object Storage](./14-Object-Storage/)**: S3, HDFS, Blob Storage for media at scale.
+9.  **[API Gateway & Proxies](./13-Architectural-Patterns/README.md#gateway)**: Ingress, Auth, Rate Limiting.
 
 ---
 
@@ -47,9 +48,11 @@ How components interact to form a reliable system.
 5.  **[Data Modeling at Scale](./17-Data-Modeling-at-Scale/)**: Normalization vs. Denormalization and Fan-out strategies.
 6.  **[System Resiliency](./09-System-Resiliency/)**: Circuit Breakers, Bulkheads, Retries with Jitter.
 7.  **[Distributed Transactions](./08-Distributed-Transactions/)**: 2PC vs Sagas.
-8.  **[Security Basics](./11-Security-Basics/)**: Auth (OAuth/JWT), Encryption, VPCs.
-9.  **[Observability & Ops](./12-Observability-and-Ops/)**: Metrics (Prometheus), Logging (ELK), Tracing (Jaeger).
-10. **[Frontend System Design](./18-Frontend-System-Design/)**: Rendering strategies and Micro-frontends.
+8.  **[Distributed Consensus (Raft/Paxos)](./20-Distributed-Consensus/)**: How nodes agree in a failure-prone network.
+9.  **[Leader Election](../lld/06-Addons/17-Leader-Election/)**: Bully algorithm, Raft/Paxos basics.
+10. **[Security Basics](./11-Security-Basics/)**: Auth (OAuth/JWT), Encryption, VPCs.
+11. **[Observability & Ops](./12-Observability-and-Ops/)**: Metrics (Prometheus), Logging (ELK), Tracing (Jaeger).
+12. **[Frontend System Design](./18-Frontend-System-Design/)**: Rendering strategies and Micro-frontends.
 
 ---
 
@@ -57,6 +60,7 @@ How components interact to form a reliable system.
 *Estimated Time: 2–3 weeks*
 Translating requirements into blueprints.
 
+- **[Case Study: Design WhatsApp](./21-Case-Study-WhatsApp/)**: A gold-standard walkthrough of a real-time messaging system.
 - **[HLD Delivery Framework](./HLD_DELIVERY_FRAMEWORK.md)**: The step-by-step interview strategy.
 - **[Practice Questions](./HLD_PRACTICE_QUESTIONS.md)**: 20+ real-world problems (Bit.ly to Uber).
 - **[DDIA Master Synopsis](./DDIA-MASTER-SYNOPSIS.md)**: Deep dive into distributed data invariants.

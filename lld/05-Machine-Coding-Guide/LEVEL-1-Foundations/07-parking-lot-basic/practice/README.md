@@ -23,3 +23,19 @@ Design a parking lot system that can assign spots to vehicles as they enter and 
 - [ ] **Inheritance vs. Composition:** Did you use a base `Vehicle` class or interface?
 - [ ] **Spot Ownership:** Does the `Spot` know which `Vehicle` is currently parked in it?
 - [ ] **Clean Separation:** Is the logic for "Finding a Spot" inside the `ParkingLot` class or a separate `Strategy`? (SDE-1: inside is fine; SDE-2: separate).
+
+---
+
+## 🔬 Tracker Diagnostics
+
+*   **Primary Patterns:** Singleton (for the ParkingLot instance), Strategy (for spot finding logic), Factory (for creating vehicles).
+*   **The "Freeze Trap":** Candidates often freeze on the "Spot Finding" logic. They try to create a complex multidimensional array. (Senior Answer: Use a `Map<VehicleType, List<ParkingSpot>>` or a `Strategy` pattern to isolate the search logic).
+*   **Class Design Checklist:**
+    *   [ ] `ParkingLot` (Singleton Orchestrator)
+    *   [ ] `ParkingSpot` (Entity with `isFree` and `VehicleType` compatibility)
+    *   [ ] `Vehicle` (Abstract base or interface)
+    *   [ ] `Ticket` (To link Vehicle, Spot, and EntryTime)
+    *   [ ] `ParkingFloor` (To manage spots in a hierarchy)
+*   **SOLID Violations to Watch For:**
+    *   **SRP:** Don't put the fee calculation logic inside the `Vehicle` or `Ticket` classes. Create a `FeeCalculator`.
+    *   **OCP:** Ensure that adding a new `VehicleType` (like `ElectricCar`) doesn't require modifying the core `ParkingLot` search logic.

@@ -68,3 +68,25 @@ In a 35-45 minute LLD round, you don't have time to be perfect. You have time to
 *   **The Pattern Trap:** Forcing a pattern (like Visitor) where a simple `if` would work.
 *   **The Silence:** Not talking through your design decisions.
 *   **Non-Compilable Code:** Spending 30 mins on complex logic that doesn't run. **Working code > Beautiful pseudo-code.**
+
+---
+
+## 🧠 The Anti-Freeze Protocol (If You Get Stuck)
+
+If you feel your brain "blanking" during the 45-minute window, execute these steps immediately:
+
+1.  **Step 1 (0-2 min): Don't Code. Draw.** Use simple boxes for main entities. Visualization breaks the freeze.
+2.  **Step 2 (2-4 min): Start with the Interface.** Type `interface Service {}`. Getting *something* on the screen builds momentum.
+3.  **Step 3 (4-6 min): Think Out Loud.** Say: *"I'm currently thinking through how to model the relationship between X and Y..."*
+4.  **Step 4 (6-8 min): Ask a Depth Question.** Ask: *"Should I focus on the concurrency aspect of seat booking now, or should I finish the core logic first?"* This buys you time while looking smart.
+
+---
+
+## 🗣️ "Explain Aloud" Prompts (SDE-2+ Signal)
+
+Use these scripts to narrate your progress and show architectural maturity:
+
+*   **During Setup:** *"I'm defining the interfaces first because I want to ensure my high-level logic is decoupled from specific implementations, following the Dependency Inversion Principle."*
+*   **During Pattern Choice:** *"I'm choosing the Strategy pattern here for pricing. This keeps my `BookingService` closed for modification but open for extension when we add new seasonal discount types."*
+*   **During Concurrency:** *"I'm using a `ConcurrentHashMap` here instead of a simple `HashMap` because we're designing for 10k concurrent users, and I need to prevent race conditions during the search phase."*
+*   **During Validation:** *"I'll throw a custom `SeatAlreadyBookedException` here. I prefer 'Fail-Fast' and explicit exceptions over returning nulls, which can cause subtle bugs later."*

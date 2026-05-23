@@ -1,4 +1,25 @@
-# 🌐 01 - Networking Basics (SDE-2 Refresher)
+# 🌐 01 - Networking Basics (C004-C014)
+
+## 🧭 Networking Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master network layers and API protocols:
+
+### 🟢 1. Transport & Directory Services
+*   [C004 - TCP vs UDP](./01-TCP-vs-UDP.md)
+*   [C006 - TLS/SSL](./02-TLS-SSL.md)
+*   [C005 - DNS Resolution](./03-DNS-Resolution.md)
+
+### 🟡 2. Web Protocols & API Paradigms
+*   [C007 - HTTP/1.1 vs HTTP/2 vs HTTP/3](./04-HTTP-Versions.md)
+*   [C010 - gRPC](./05-gRPC.md)
+*   [C009 - REST vs GraphQL](./06-REST-vs-GraphQL.md)
+*   [C008 - Content Negotiation](./07-Content-Negotiation.md)
+
+### 🔴 3. Real-Time Communication
+*   [C013 - WebSockets](./08-WebSockets.md)
+*   [C012 - Server-Sent Events (SSE)](./09-Server-Sent-Events.md)
+*   [C011 - Long Polling](./10-Long-Polling.md)
+
+---
 
 ## 📖 The Concept
 Before a request ever hits your Load Balancer, it must traverse the public internet. Understanding this journey is essential for debugging high-level latency issues.

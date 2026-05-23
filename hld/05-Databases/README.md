@@ -1,4 +1,25 @@
-# 🗄️ 05 - Databases (The SDE-2 Perspective)
+# 🗄️ 05 - Databases (C031-C042)
+
+## 🧭 Database Fundamentals Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master database architectures:
+
+### 🟢 1. Core Databases & Design Decisions
+*   [C031 - SQL vs. NoSQL Decision](./01-SQL-vs-NoSQL-Decision.md)
+*   [C032 - Database Indexing](./02-Database-Indexing.md)
+*   [C039 - Query Optimization](./03-Query-Optimization.md)
+*   [C040 - Denormalization](./04-Denormalization.md)
+*   [C041 - Connection Pooling](./05-Connection-Pooling.md)
+*   [C042 - OLTP vs. OLAP](./06-OLTP-vs-OLAP.md)
+
+### 🟡 2. Database Engine Internals (DDIA Mastery)
+*   [C034 - B-Trees vs. LSM-Trees](./07-B-Trees-vs-LSM-Trees.md)
+*   [C035 - Buffer Pool & Cache Management](./08-Buffer-Pool-and-Cache-Management.md)
+*   [C033 - Database Indexing (Clustered/Non-Clustered)](./09-Clustered-vs-Non-Clustered-Indexing.md)
+*   [C037 - MVCC (Multi-Version Concurrency Control)](./10-MVCC.md)
+*   [C038 - Query Optimizer & Execution Plans](./11-Query-Optimizer-and-Execution-Plans.md)
+*   [C036 - Write-Ahead Logging (WAL)](./12-Write-Ahead-Logging.md)
+
+---
 
 ## 📖 The Concept
 Databases store system state. The fundamental choice is between Relational (SQL) and Non-Relational (NoSQL). An SDE-2 must know exactly *why* a specific data model fits the business requirement.

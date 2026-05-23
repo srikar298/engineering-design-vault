@@ -1,4 +1,17 @@
-# 🤝 08 - Distributed Transactions (The SDE-3 Edge)
+# 🤝 08 - Distributed Transactions (C089-C091)
+
+## 🧭 Distributed Transactions Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to study consistency across distributed systems:
+
+### 🟢 1. Patterns
+*   [C089 - Distributed Transactions (Overview)](./01-Distributed-Transactions.md)
+*   [C091 - Saga Pattern](./02-Saga-Pattern.md)
+
+### 🔴 2. Protocols
+*   [C090 - Two-Phase Commit (2PC)](./03-Two-Phase-Commit.md)
+
+---
+
 
 ## 📖 The Concept
 In a microservices architecture, a single business workflow (e.g., Booking a trip: Flight + Hotel + Car) spans multiple independent databases. Ensuring all succeed, or all fail together, is the problem of Distributed Transactions.

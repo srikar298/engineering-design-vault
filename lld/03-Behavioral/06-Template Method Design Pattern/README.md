@@ -111,6 +111,29 @@ In senior-level architecture, the Template Method is the foundation of **Applica
 
 ---
 
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Skeleton of an algorithm", "Vary steps not structure", "Hollywood Principle", "Hook methods".
+*   **SOLID Connection:** Primarily addresses **OCP** (extend steps via subclassing) and **LSP** (ensure subclasses don't break the template).
+*   **Confuses With:** 
+    *   **Strategy Pattern:** (Hook: Template Method uses **Inheritance** (compile-time); Strategy uses **Composition** (runtime)).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public abstract class Template {
+        public final void execute() { 
+            step1(); 
+            step2(); 
+        }
+        protected abstract void step2();
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. Why is the `final` keyword important for the template method itself?
+    2. What is a "Hook" method and how does it differ from an "Abstract" method?
+    3. How do you adhere to the Liskov Substitution Principle when overriding steps?
+
+---
+
 ## 🌍 7. Cross-Language: Template Method
 
 ### 🐍 Python

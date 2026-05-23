@@ -140,6 +140,29 @@ In senior-level system design, the State pattern is the object-oriented realizat
 
 ---
 
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Object behavior depends on state", "State machine", "Remove deep if-else state checks", "State transitions".
+*   **SOLID Connection:** Addresses **OCP** (add new states without changing the context) and **SRP** (isolates state-specific behavior).
+*   **Confuses With:** 
+    *   **Strategy:** (Hook: Strategy is interchangeable algorithms chosen by client; State is automatic behavior changes managed internally).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public interface State { void handle(Context context); }
+    public class Context {
+        private State state;
+        public void setState(State s) { this.state = s; }
+        public void request() { state.handle(this); }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. Who should be responsible for state transitions: the Context or the Concrete States?
+    2. How do you handle shared data between states without tight coupling?
+    3. When should you use a simple `enum` instead of the full State pattern?
+
+
+---
+
 ## 🌍 7. Cross-Language: State
 
 ### 🐍 Python

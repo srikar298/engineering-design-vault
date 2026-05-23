@@ -128,6 +128,31 @@ In a senior-level system, the **Strategy Pattern** is arguably the most common t
 
 ---
 
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Multiple algorithms", "Interchangeable algorithms", "Replace if-else/switch with OOP", "Runtime algorithm selection".
+*   **SOLID Connection:** Primarily addresses **OCP** (adding new strategy = new class) and **SRP** (each strategy encapsulates one algorithm).
+*   **Confuses With:** 
+    *   **State Pattern:** (Hook: Strategy is about *how* to do a task, chosen by the client; State is about *what* behavior happens based on internal state, often transitioning automatically).
+    *   **Template Method:** (Hook: Strategy uses **Composition** (inject the algorithm); Template uses **Inheritance** (subclass to fill in steps)).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public interface Strategy {
+        void execute();
+    }
+    public class Context {
+        private Strategy strategy;
+        public void setStrategy(Strategy s) { this.strategy = s; }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. How does the Strategy pattern reduce "Class Explosion" compared to Inheritance?
+    2. Can you explain how to use a `Map<Type, Strategy>` as a "Registry" to eliminate the final switch statement?
+    3. How do you pass data from the `Context` to the `Strategy` without causing tight coupling?
+
+
+---
+
 ## 🌍 7. Cross-Language: Strategy
 
 ### 🐍 Python

@@ -17,3 +17,19 @@ We are building a robust **Hardware Vending Machine**.
 
 ## ▶️ Execution
 To run the Java implementation, go into the `JAVA` folder and see the specific `README.md`.
+
+---
+
+## 🔬 Tracker Diagnostics
+
+*   **Primary Patterns:** State (for Machine logic), Chain of Responsibility (for coin validation), Singleton (for the VendingMachine instance).
+*   **The "Freeze Trap":** Candidates often struggle with where to store the "inventory" and "balance." (Senior Answer: Keep the `Inventory` and `Balance` inside the `VendingMachine` (Context) class. The `State` objects should manipulate these values via public/protected methods on the context).
+*   **Class Design Checklist:**
+    *   [ ] `VendingMachine` (Context)
+    *   [ ] `IVendingState` (Interface)
+    *   [ ] `IdleState`, `HasMoneyState`, `DispensingState` (Concrete States)
+    *   [ ] `Inventory` (Wrapper around `Map<Product, Integer>`)
+    *   [ ] `CoinHandler` (Abstract class for CoR)
+*   **SOLID Violations to Watch For:**
+    *   **OCP:** Ensure that adding a new State (e.g., `OutOfStockState`) doesn't require modifying existing state classes if possible (or keep modifications minimal).
+    *   **LSP:** Every State must implement *all* methods of the `IVendingState` interface, even if just to throw a "Not Allowed" message.

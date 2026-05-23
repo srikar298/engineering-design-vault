@@ -124,6 +124,30 @@ In modern enterprise architectures, the Command pattern is heavily used for **Qu
 
 ---
 
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Undo/Redo functionality", "Queue requests", "Callback/Parameterize actions", "Log operations/Audit trail".
+*   **SOLID Connection:** Addresses **SRP** (encapsulates a request as an object) and **OCP** (add new commands without changing the invoker).
+*   **Confuses With:** 
+    *   **Strategy:** (Hook: Strategy is *how* to do something; Command is *what* to do - including the ability to undo it).
+    *   **Memento:** (Hook: Command handles undo by reversing an action; Memento handles undo by restoring a full state snapshot).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public interface Command { void execute(); void undo(); }
+    public class Invoker {
+        private Command command;
+        public void setCommand(Command c) { this.command = c; }
+        public void click() { command.execute(); }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. Why is it an anti-pattern to put heavy business logic inside a Command object?
+    2. How does the Command pattern facilitate distributed job queues?
+    3. What is the role of the "Receiver" in this pattern?
+
+
+---
+
 ## 🌍 7. Cross-Language: Command
 
 ### 🐍 Python

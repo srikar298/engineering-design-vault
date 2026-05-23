@@ -135,6 +135,29 @@ In a senior-level architecture, the **Observer Pattern** scales out from simple 
 
 ---
 
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Notify multiple objects on change", "One-to-many dependency", "Event handling", "Publish-Subscribe".
+*   **SOLID Connection:** Primarily addresses **OCP** (add new observers without changing the publisher) and **SRP** (decouples state management from notification logic).
+*   **Confuses With:** 
+    *   **Mediator:** (Hook: Observer is one-to-many, subject notifies; Mediator is many-to-many through a central hub).
+    *   **Chain of Responsibility:** (Hook: Observer sends notification to all subscribers at once; CoR passes a request sequentially until someone handles it).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public interface Observer { void update(String data); }
+    public class Subject {
+        private List<Observer> observers = new ArrayList<>();
+        public void notify(String data) { observers.forEach(o -> o.update(data)); }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. How do you prevent memory leaks in the Observer pattern (Lapsed Listener problem)?
+    2. What is the difference between the "Push" and "Pull" models of notification?
+    3. How would you make the `notify()` method asynchronous to prevent one slow observer from blocking the system?
+
+
+---
+
 ## 🌍 7. Cross-Language: Observer
 
 ### 🐍 Python

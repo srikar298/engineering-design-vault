@@ -1,6 +1,39 @@
-# ⚡ 04 - Caching Mastery: From Local to Distributed
+# ⚡ 04 - Caching Mastery (C015-C030)
 
 > **"There are only two hard things in Computer Science: cache invalidation and naming things." — Phil Karlton**
+
+## 🧭 Caching & Database Optimization Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to deep dive into each caching concept:
+
+### 🟢 1. Foundations & Topologies
+*   [C015 - Cache Fundamentals](./01-Cache-Fundamentals.md)
+*   [C023 - Distributed Cache](./02-Distributed-Cache.md)
+*   [C024 - CDN (Content Delivery Network)](./03-CDN.md)
+
+### 🟡 2. Read & Write Patterns
+*   [C016 - Cache-Aside (Lazy Loading)](./04-Cache-Aside.md)
+*   [C017 - Write-Through Cache](./05-Write-Through-Cache.md)
+*   [C018 - Write-Behind Cache](./06-Write-Behind-Cache.md)
+*   [C019 - Refresh-Ahead](./07-Refresh-Ahead.md)
+
+### 🔴 3. Cache Eviction Policies
+*   [C020 - Cache Eviction - TTL](./08-Cache-Eviction-TTL.md)
+*   [C021 - Cache Eviction - LRU](./09-Cache-Eviction-LRU.md)
+*   [C022 - Cache Eviction - LFU](./10-Cache-Eviction-LFU.md)
+
+### 🟣 4. Failure Modes & Resiliency
+*   [C025 - Cache Penetration](./11-Cache-Penetration.md)
+*   [C026 - Cache Stampede](./12-Cache-Stampede.md)
+*   [C027 - Cache Avalanche](./13-Cache-Avalanche.md)
+*   [C028 - Cache Warming](./14-Cache-Warming.md)
+
+### 🗄️ 5. Resource Optimization
+*   [C029 - Connection Pooling](./15-Connection-Pooling.md)
+
+### 🔬 6. Probabilistic Data Structures
+*   [C030 - Bloom Filters](./16-Bloom-Filters.md)
+
+---
 
 ## 📖 1. The Foundations: Why Caching?
 Caching is the process of storing data in a high-speed data storage layer (usually RAM) so that future requests for that data are served faster than is possible by accessing the data’s primary storage location (Disk/Database).

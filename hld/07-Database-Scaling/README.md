@@ -1,4 +1,14 @@
-# 🚀 07 - Database Scaling: Replication & Sharding
+# 🚀 07 - Database Scaling (C060-C064)
+
+## 🧭 Database Scaling Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to study database scaling:
+*   [C060 - Database Replication](./01-Database-Replication.md)
+*   [C061 - Read Replicas](./02-Read-Replicas.md)
+*   [C062 - Database Partitioning](./03-Database-Partitioning.md)
+*   [C063 - Database Sharding](./04-Database-Sharding.md)
+*   [C064 - Database Federation](./05-Database-Federation.md)
+
+---
 
 ## 📖 1. The Basics
 Scaling a database is the hardest part of a 10k+ user system. You must balance between **Replication** (Copying data for High Availability and Reads) and **Sharding** (Splitting data for Writes).

@@ -1,4 +1,34 @@
-# 🏗️ 13 - Architectural Patterns (Monolith, Microservices, & Beyond)
+# 🏗️ 13 - Architectural Patterns (C056-C126)
+
+## 🧭 Microservices & Architectural Patterns Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master microservices and distributed systems architectures:
+
+### 🟢 1. Integration & Infrastructure Patterns
+*   [C056 - Ambassador Pattern](./01-Ambassador-Pattern.md)
+*   [C123 - Anti-Corruption Layer (ACL)](./02-Anti-Corruption-Layer.md)
+*   [C057 - Sidecar Pattern](./10-Sidecar.md)
+*   [C124 - Strangler Fig Pattern](./11-Strangler-Fig.md)
+
+### 🟡 2. Microservice Database & Query Patterns
+*   [C116 - Database per Service](./05-Database-per-Service.md)
+*   [C117 - Shared Database Pattern](./09-Shared-Database.md)
+*   [C118 - API Composition](./03-API-Composition.md)
+*   [C119 - CQRS (Command Query Responsibility Segregation)](./04-CQRS.md)
+
+### 🔴 3. Distributed Transactions & Resiliency
+*   [C120 - Event Sourcing](./06-Event-Sourcing.md)
+*   [C121 - Transactional Outbox Pattern](./08-Outbox-Pattern.md)
+*   [C122 - Idempotency](./07-Idempotency.md)
+
+### 🟠 4. Microservice Architecture & Infrastructure
+*   [C114 - Monolith vs. Microservices](./13-Monolith-vs-Microservices.md)
+*   [C115 - Microservices Architecture](./12-Microservices.md)
+*   [C058 - Service Discovery](./14-Service-Discovery.md)
+*   [C059 - Service Mesh](./15-Service-Mesh.md)
+*   [C057 - Sidecar Pattern](./10-Sidecar.md) *(See also Section 1)*
+
+---
+
 
 Choosing the right architectural style is the most fundamental decision in a project. It determines how your team scales, how you deploy, and how you handle failure.
 
@@ -101,6 +131,41 @@ A single entry point for all clients. Handles:
 
 ---
 
-## 🚀 The SDE-2 Interview Tip
+## 🏗️ 5. Modern Infrastructure Patterns
+
+### Sidecar Pattern (C089, C100)
+- **Concept:** A separate container that runs alongside your application container in the same "Pod" (Kubernetes).
+- **Purpose:** Offload cross-cutting concerns (Logging, Service Discovery, Security/mTLS) so your application code stays pure.
+- **Example:** Istio uses an Envoy proxy as a sidecar.
+
+### Ambassador Pattern (C101)
+- **Concept:** A specialized sidecar that acts as a client-side proxy for outgoing requests.
+- **Purpose:** Handles retries, logging, and circuit breaking for external APIs.
+
+### Strangler Fig Pattern (C099)
+- **Concept:** Incrementally migrating a Monolith to Microservices by "strangling" old features with new ones.
+- **Goal:** Move logic feature-by-feature rather than a "Big Bang" rewrite.
+
+### Anti-Corruption Layer (ACL) (C102)
+- **Concept:** A translation layer between two systems that have different data models or semantics.
+- **Purpose:** Prevents your new clean system from being "corrupted" by a messy legacy system's model.
+
+---
+
+## 🚫 The SDE-2 Interview Tip
 If you suggest Microservices, the interviewer will ask: **"How do you handle a failure in Service B when Service A calls it?"**
 *Answer:* "I would use a **Circuit Breaker** to stop cascading failures and provide a **Fallback** response."
+
+---
+
+## 🧠 Tracker Integration (C084-C105)
+
+*   **Core Trade-off:** Microservices (Flexibility) vs Monolith (Simplicity).
+*   **The "Senior Signal":** Knowing when to use a **Sidecar** to keep business logic clean.
+*   **Interview Trap:** Splitting a monolith too early when the scale doesn't justify the operational overhead.
+
+### 🔬 Self-Assessment Prompts
+1. What is the difference between a Sidecar and an Ambassador?
+2. When should you use a "Modular Monolith" instead of Microservices?
+3. How does CQRS help in building a high-performance Read model?
+

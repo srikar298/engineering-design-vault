@@ -21,6 +21,12 @@ This vault is designed to bridge the gap between abstract architectural concepts
 - Design Patterns (Creational, Structural, Behavioral)
 - [Senior LLD Practice](./lld/SENIOR_LLD_PRACTICE.md)
 
+### 🎭 [Behavioral Mastery OS](./behavioral/)
+*Focus: Strategic Storytelling, Leadership Principles, and Soft Skills.*
+- [Master Story Templates](./behavioral/STORY_BANK_TEMPLATES.md)
+- [Amazon Leadership Principle (LP) Matrix](./behavioral/AMAZON_LP_MATRIX.md)
+- [Master Question Bank (45 Questions)](./behavioral/QUESTION_BANK.md)
+
 ---
 
 ## ⚡ Core Insights & Language Mastery

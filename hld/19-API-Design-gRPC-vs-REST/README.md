@@ -1,4 +1,4 @@
-# 🔌 19 - API Design: gRPC vs. REST (SDE-2 Core)
+# 🔌 19 - API Design (C015, C016)
 
 ## 📖 1. The Concept
 Communication between services is the backbone of HLD. While REST is the industry default, gRPC is the "High-Performance" choice for internal microservices.

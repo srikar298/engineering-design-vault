@@ -1,4 +1,4 @@
-# 🟢 00 - HLD Fundamentals: Requirements & Estimations
+# 🟢 00 - HLD Fundamentals: Requirements & Estimations (C001, C003, C004, C110)
 
 Before you draw a single box, you must define what you are building and at what scale.
 

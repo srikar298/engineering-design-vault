@@ -160,6 +160,31 @@ In your experience as a Founding Engineer:
 
 ---
 
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Incompatible interfaces", "Make old work with new", "Third-party/Legacy integration", "Anti-corruption layer".
+*   **SOLID Connection:** Addresses **OCP** (adapt new classes without changing client code) and **SRP** (separates conversion logic from business logic).
+*   **Confuses With:** 
+    *   **Facade:** (Hook: Adapter makes incompatible interfaces work; Facade simplifies a complex interface).
+    *   **Proxy:** (Hook: Proxy controls *access*; Adapter changes the *interface*).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public class Adapter implements TargetInterface {
+        private Adaptee adaptee;
+        public void request() {
+            // translate and delegate
+            adaptee.specificRequest();
+        }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. Why is the "Object Adapter" (Composition) preferred over the "Class Adapter" (Inheritance)?
+    2. How does an Adapter act as an "Anti-Corruption Layer" in microservices?
+    3. Can an Adapter add new functionality, or should it only translate?
+
+
+---
+
 ## 🌍 7. Cross-Language: Adapter
 
 ### 🐍 Python

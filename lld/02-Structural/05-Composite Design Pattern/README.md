@@ -169,6 +169,27 @@ In your experience as a Founding Engineer:
 
 ---
 
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Tree structure", "Part-whole hierarchy", "Treat group and individual objects the same", "Recursive aggregation".
+*   **SOLID Connection:** Addresses **OCP** (add new component types without changing client code) and **SRP** (by decoupling tree traversal from the client).
+*   **Confuses With:** 
+    *   **Decorator:** (Hook: Decorator wraps one object (1:1); Composite aggregates multiple objects (1:N)).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public interface Component { void execute(); }
+    public class Composite implements Component {
+        private List<Component> children = new ArrayList<>();
+        public void execute() { children.forEach(Component::execute); }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. Should management methods (`add`/`remove`) be in the base interface or only the Composite class? (Uniformity vs. Safety).
+    2. How do you handle deep tree traversals without hitting a `StackOverflowError`?
+    3. Can you name 3 real-world systems that are naturally modeled using the Composite pattern?
+
+---
+
 ## 🌍 7. Cross-Language: Composite
 
 ### 🐍 Python

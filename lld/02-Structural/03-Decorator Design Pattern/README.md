@@ -182,6 +182,29 @@ In your experience as a Founding Engineer:
 
 ---
 
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Add behavior dynamically", "Wrap objects", "Avoid class explosion", "Optional features/add-ons", "Middleware".
+*   **SOLID Connection:** Addresses **OCP** (add behavior via new decorator without modifying base class) and **SRP** (split concerns like logging/auth into separate wrappers).
+*   **Confuses With:** 
+    *   **Proxy Pattern:** (Hook: Proxy controls *access* (guard); Decorator adds *behavior* (enhancer)).
+    *   **Adapter Pattern:** (Hook: Adapter changes the *interface* to make it compatible; Decorator keeps the *same interface* but adds behavior).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public abstract class BaseDecorator implements Component {
+        protected Component wrappee;
+        public BaseDecorator(Component c) { this.wrappee = c; }
+        public void execute() { wrappee.execute(); }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. Why must the Decorator implement the same interface as the object it wraps?
+    2. How would you handle a "Base Class" that has 20 methods without writing 20 delegation calls in every decorator?
+    3. Can you name a real-world example of the Decorator pattern in the standard Java library?
+
+
+---
+
 ## 🌍 7. Cross-Language: Decorator
 
 ### 🐍 Python

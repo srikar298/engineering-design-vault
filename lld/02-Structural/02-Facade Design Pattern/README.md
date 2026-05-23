@@ -152,6 +152,29 @@ In your experience as a Founding Engineer:
 
 ---
 
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Simplify complex subsystem", "Single entry point", "Hide implementation complexity", "BFF (Backend for Frontend)".
+*   **SOLID Connection:** Addresses **SRP** (orchestration logic in one place) and **Least Knowledge (Law of Demeter)**.
+*   **Confuses With:** 
+    *   **Adapter:** (Hook: Facade simplifies many interfaces into one; Adapter changes one interface into another).
+    *   **Mediator:** (Hook: Facade is a one-way entry point to a subsystem; Mediator is a many-to-many communication hub).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public class Facade {
+        private SubsystemA a;
+        private SubsystemB b;
+        public void simpleOperation() { a.start(); b.init(); }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. Does a Facade *prevent* clients from using the subsystems directly?
+    2. What is the "God Facade" anti-pattern?
+    3. How does the Facade pattern relate to the "Backend for Frontend" (BFF) architectural pattern?
+
+
+---
+
 ## 🌍 7. Cross-Language: Facade
 
 ### 🐍 Python

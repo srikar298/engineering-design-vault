@@ -165,6 +165,30 @@ In a senior-level system, the **Proxy Pattern** is the primary tool for **Interc
 
 ---
 
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Control access", "Lazy initialization", "Placeholder/Surrogate", "Protection/Caching/Remote proxy".
+*   **SOLID Connection:** Primarily addresses **SRP** (isolates infrastructure concerns like security/caching from business logic).
+*   **Confuses With:** 
+    *   **Decorator:** (Hook: Proxy controls *access/lifecycle*; Decorator adds *behavior*).
+    *   **Facade:** (Hook: Proxy has the *same interface*; Facade has a *different/simpler interface*).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public class Proxy implements Interface {
+        private RealObject real;
+        public void request() {
+            if (real == null) real = new RealObject();
+            real.request();
+        }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. What is the difference between a "Virtual Proxy" and a "Protection Proxy"?
+    2. How does Spring use Proxies to implement the `@Transactional` behavior?
+    3. How does the Proxy pattern help in implementing an "Anti-Corruption Layer"?
+
+---
+
 ## 🌍 7. Cross-Language: Proxy
 
 ### 🐍 Python

@@ -1,4 +1,27 @@
-# 📬 06 - Message Queues (The SDE-2 Perspective)
+# 📬 06 - Message Queues & Event Streaming (C092-C101)
+
+## 🧭 Messaging & Queues Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master async communication patterns:
+
+### 🟢 1. Foundations
+*   [C092 - Message Queue Fundamentals](./01-Message-Queue-Fundamentals.md)
+*   [C093 - Pub/Sub Pattern](./03-Pub-Sub-Pattern.md)
+*   [C095 - Consumer Groups](./04-Consumer-Groups.md)
+
+### 🟡 2. Delivery Semantics
+*   [C094 - Delivery Guarantees (At-Most/At-Least/Exactly-Once)](./02-Delivery-Guarantees.md)
+*   [C096 - Dead Letter Queue (DLQ)](./05-Dead-Letter-Queue.md)
+*   [C097 - Backpressure](./06-Backpressure.md)
+
+### 🔴 3. Kafka Deep Dive
+*   [C098 - Kafka Architecture](./07-Kafka-Architecture.md)
+*   [C099 - Kafka vs RabbitMQ](./08-Kafka-vs-RabbitMQ.md)
+
+### 🟣 4. Event-Driven Systems
+*   [C100 - Event-Driven Architecture (EDA)](./09-Event-Driven-Architecture.md)
+*   [C101 - Event Streaming](./10-Event-Streaming.md)
+
+---
 
 ## 📖 The Concept
 Message brokers enable asynchronous communication between microservices, decoupling the producer of a message from the consumer. This provides buffering against traffic spikes and increases system fault tolerance.

@@ -1,4 +1,13 @@
-# 🏗️ 02 - Scale From Zero (SDE-2 Refresher)
+# 🏗️ 02 - Scale From Zero (C001-C003) (SDE-2 Refresher)
+
+## 🧭 Scalability Fundamentals Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master the fundamentals of system scaling:
+
+*   [C001 - Vertical vs. Horizontal Scaling](./01-Vertical-vs-Horizontal-Scaling.md)
+*   [C003 - Capacity Estimation](./02-Capacity-Estimation.md)
+*   [C002 - Latency vs. Throughput](./03-Latency-vs-Throughput.md)
+
+---
 
 ## 📖 The Concept
 Scaling a system from 1 user to 10 million users requires transitioning from a single box (Monolith) to a distributed, stateless architecture.

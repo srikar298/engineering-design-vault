@@ -91,7 +91,28 @@ Benefits:
 
 ---
 
-## 💥 5. FAANG / MNC Interview Preparation
+## 🚀 5. Advanced Association Architecture (SDE-2+)
+
+### 5.1 Memory Leaks & `WeakReference`
+A hidden danger in Java is that a long-lived object with an association to a short-lived object will prevent the Garbage Collector from cleaning up the short-lived object, causing a memory leak.
+**The Senior Fix:** Use `WeakReference<T>` or `WeakHashMap`. If a central `Registry` or `EventBus` needs to "know" about listener objects but shouldn't control their lifecycle, a weak association ensures that when the listener is no longer used elsewhere in the application, it is safely destroyed.
+
+### 5.2 Database Mapping & ORM (JPA/Hibernate)
+In system design, UML associations directly translate to database schemas. 
+- **1-to-Many "Owning Side":** In a `Department` (1) to `Employee` (Many) association, the "Many" side (`Employee`) should hold the foreign key (`department_id`). This avoids the need for an expensive intermediary mapping table.
+- **Many-to-Many:** The Intermediary Class pattern perfectly maps to a **SQL Join Table**. In Hibernate, this is annotated with `@ManyToMany` or explicitly mapped as two `@OneToMany` relationships pointing to a dedicated `@Entity` for the join table.
+
+### 5.3 Decoupling via Event-Driven Architecture
+Associations create structural coupling. If your `OrderService` holds an association to `EmailService`, `SMSService`, and `InventoryService`, it becomes a bloated god-class.
+**The Senior Fix:** When associations scale out of control, break them. Replace the structural association with an **Event Bus (Pub/Sub)**. The `OrderService` simply fires an `OrderPlacedEvent`, and the other services listen. The association becomes *temporal* rather than structural.
+
+### 5.4 Aggregate Roots (Domain-Driven Design)
+Should a `PaymentService` be allowed to associate directly with an `OrderLineItem`? No. 
+**The Senior Fix:** Enforce boundaries using **Aggregate Roots**. The `Order` acts as the root of its cluster. External classes can only associate with the `Order`, never directly with its internal children (`OrderLineItem`). This ensures the `Order` can enforce its own business invariants.
+
+---
+
+## 💥 6. FAANG / MNC Interview Preparation
 
 ### Q1: "What is the difference between Association and Composition in LLD?"
 **The Senior Answer:**
@@ -107,11 +128,11 @@ By using an **intermediary class** (join-entity pattern) and a **contains guard*
 
 ---
 
-## 🛠️ 6. Executable Code Examples
+## 🛠️ 7. Executable Code Examples
 - [AssociationDemo.java](./AssociationDemo.java): Complete, executable implementation of the Hospital Appointment System covering unidirectional, bidirectional, one-to-many, and many-to-many associations with the join-entity (Intermediary) pattern.
 
 ---
 
-## 📚 7. Further Reading / Patterns Linked
+## 📚 8. Further Reading / Patterns Linked
 - Many-to-many with an intermediary maps to the **Mediator Design Pattern**.
 - Association with injected dependencies is the foundation of **Dependency Injection** and **Dependency Inversion Principle (DIP)** in SOLID.

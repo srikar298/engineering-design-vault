@@ -64,7 +64,23 @@ This demonstrates that a single real-world entity can have **both** Aggregation 
 
 ---
 
-## 💥 5. FAANG / MNC Interview Preparation
+## 🚀 5. Advanced Aggregation Architecture (SDE-2+)
+
+### 5.1 Database Cascading (The JPA/Hibernate Reality)
+In system design interviews, UML relationships must translate to database schemas. Because Aggregation means the "part" survives the "whole", **you must never cascade deletes**.
+- **The Senior Rule:** In JPA/Hibernate, an Aggregation relationship (`@OneToMany` or `@ManyToMany`) should **never** use `CascadeType.REMOVE` or `CascadeType.ALL`. If a `Department` is deleted, the `Professor` records must remain untouched in the database. (Contrast this with Composition, where `CascadeType.ALL` is strictly required).
+
+### 5.2 The Cloning Dilemma (Shallow vs. Deep Copy)
+If you are asked to implement a `.clone()` method for an aggregate object, how do you handle the parts?
+- **The Senior Rule:** Because Aggregation implies shared lifecycle independence, you perform a **Shallow Copy** of the parts. You simply copy the *references* to the existing `Professor` objects so the cloned `Department` points to the exact same professors. (If this were Composition, you would be forced to execute an expensive Deep Copy to clone every internal part).
+
+### 5.3 The Foundation of Dependency Injection (IoC)
+Aggregation is defined by "injecting the part from the outside." This exact principle is the architectural foundation of **Dependency Injection (DI)** and **Inversion of Control (IoC)** frameworks like Spring.
+When Spring Boot injects a `UserRepository` into a `UserService` via constructor injection, it is using pure Aggregation. The repository exists independently in the Application Context and is simply aggregated into the service.
+
+---
+
+## 💥 6. FAANG / MNC Interview Preparation
 
 ### Q1: "What is the precise difference between Aggregation and Composition?"
 **The Senior Answer:**
@@ -76,11 +92,11 @@ Yes — this is precisely what distinguishes Aggregation from Composition. A `Pr
 
 ---
 
-## 🛠️ 6. Executable Code Examples
+## 🛠️ 7. Executable Code Examples
 - [AggregationDemo.java](./AggregationDemo.java): University system demonstrating Department/Professor aggregation — proving that deleting the Department does not delete the Professors.
 
 ---
 
-## 📚 7. Further Reading / Patterns Linked
+## 📚 8. Further Reading / Patterns Linked
 - Aggregation maps naturally to **Repository Pattern** (a repository aggregates domain objects it doesn't own).
 - Shared Aggregation is the structural basis of the **Flyweight Pattern** (sharing reusable parts across many containers).

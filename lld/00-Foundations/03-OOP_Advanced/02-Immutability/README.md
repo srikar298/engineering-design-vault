@@ -51,7 +51,32 @@ A `Money` object representing `$250.00 USD` must never be mutated. When you appl
 
 ---
 
-## 💥 5. FAANG / MNC Interview Preparation
+## 🚀 5. Advanced Immutability Concepts (SDE-2+)
+
+### 5.1 Java Records (Java 14+)
+Java 14 introduced `record` classes—the modern, native way to create immutable data carriers.
+```java
+public record UserDTO(String id, String email) {}
+```
+A `record` automatically generates the constructor, getters, `equals()`, `hashCode()`, and `toString()`. All fields are `private final` by default. This eliminates the need to manually write the "5-Step Recipe" for simple data objects.
+
+### 5.2 Shallow vs. Deep Immutability
+- **Shallow Immutability:** An object is shallowly immutable if its fields cannot be reassigned, but the objects those fields point to *can* be modified (e.g., holding a defensively copied `List<Item>` where the `Item` itself has setters).
+- **Deep Immutability:** An object is deeply immutable if all of its fields are immutable, and the fields of those objects are immutable, all the way down the tree. **Senior engineers design for deep immutability.**
+
+### 5.3 The Builder Pattern Synergy
+Constructing an immutable object with 10 fields requires a massive 10-argument constructor (Constructor Hell). The **Builder Pattern** is the perfect companion to Immutability. You use a mutable `Builder` to gather the parameters step-by-step, and when you call `.build()`, it calls the private constructor of the immutable object, validating the final state.
+
+### 5.4 The GC Performance Trade-off
+Seniors know the trade-offs. If every mutation creates a new object (e.g., `money.add(fee)` returning a new object), it creates more work for the Garbage Collector (GC). However, modern JVMs (using G1GC or ZGC) handle short-lived immutable objects exceptionally well using **Escape Analysis** and **Thread-Local Allocation Buffers (TLAB)**. The thread-safety and predictability benefits in a concurrent system far outweigh the minor GC cost.
+
+### 5.5 Concurrency: CopyOnWrite & Functional Programming
+- **CopyOnWriteArrayList:** A thread-safe collection that relies on immutability under the hood. Every write operation (add/remove) creates a fresh, immutable copy of the underlying array, making concurrent reads entirely lock-free.
+- **Functional Streams:** Immutability is the prerequisite for safe parallel processing. Using `.parallelStream()` on a collection of mutable objects is dangerous; using it on immutable objects is safe and scalable.
+
+---
+
+## 💥 6. FAANG / MNC Interview Preparation
 
 ### Q1: "If all fields of a class are `private final`, is the class immutable?"
 **The Senior Answer:**
@@ -66,11 +91,11 @@ Three architectural reasons:
 
 ---
 
-## 🛠️ 6. Executable Code Examples
+## 🛠️ 7. Executable Code Examples
 - [ImmutabilityDemo.java](./ImmutabilityDemo.java): A provably immutable `MoneyAmount` class demonstrating all 5 rules, including the defensive copy traps.
 
 ---
 
-## 📚 7. Further Reading / Patterns Linked
+## 📚 8. Further Reading / Patterns Linked
 - Immutability is the foundation of **Value Objects** in Domain-Driven Design (DDD).
 - It enables lock-free concurrency structures in **Reactive Programming**.

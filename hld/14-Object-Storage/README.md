@@ -1,4 +1,22 @@
-# 📦 14 - File & Object Storage (S3, HDFS, Blob)
+# 📦 14 - File & Object Storage (S3, HDFS, Blob) (C105-C109)
+
+## 🧭 Storage & Big Data Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master cloud object storage, raw databases, data warehousing, and big data batch computation:
+
+### 🟢 1. Object Storage Foundations
+*   [C105 - S3 & Object Storage](./01-S3-and-Object-Storage.md)
+
+### 🟡 2. Storage Engines & Layouts
+*   [C106 - Columnar vs. Row Storage](./02-Columnar-vs-Row-Storage.md)
+
+### 🔴 3. Data Lakehouse & Warehousing
+*   [C107 - Data Lakes vs. Data Warehouses](./03-Data-Lakes-vs-Data-Warehouses.md)
+*   [C108 - Cloud Data Warehousing (BigQuery/Snowflake)](./04-Data-Warehousing-BigQuery-Snowflake.md)
+
+### 🟣 4. Distributed Processing Systems
+*   [C109 - HDFS & MapReduce](./05-HDFS-and-MapReduce.md)
+
+---
 
 ## 📖 1. The Concept
 Databases are great for structured data, but where do you store 5TB of user profile pictures or 100GB log files? You need specialized storage for **Unstructured Data**.

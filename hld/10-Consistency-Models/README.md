@@ -1,4 +1,27 @@
-# ⚖️ 10 - Consistency Models (The SDE-3 Edge)
+# ⚖️ 10 - Consistency Models & CAP (C067-C080)
+
+## 🧭 Consistency Models Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master transactional safety, replication boundaries, and data correctness guarantees:
+
+### 🟢 1. Transactional & Replication Fundamentals
+*   [C067 - ACID Properties](./01-ACID-Properties.md)
+*   [C068 - BASE Properties](./02-BASE-Properties.md)
+
+### 🟡 2. Distributed Theorems & Trade-offs
+*   [C069 - CAP Theorem](./03-CAP-Theorem.md)
+*   [C070 - PACELC Theorem](./04-PACELC-Theorem.md)
+
+### 🔴 3. System Consistency Models
+*   [C071 - Strong Consistency](./05-Strong-Consistency.md)
+*   [C072 - Eventual Consistency](./06-Eventual-Consistency.md)
+*   [C079 - Causal Consistency](./07-Causal-Consistency.md)
+*   [C080 - Linearizability](./08-Linearizability.md)
+
+### 🟣 4. Client-Centric Consistency Models
+*   [C073 - Monotonic Reads](./09-Monotonic-Reads.md)
+*   [C074 - Read-Your-Writes Consistency](./10-Read-Your-Writes.md)
+
+---
 
 ## 📖 The Concept
 In distributed systems, data is replicated across multiple nodes. Consistency models define *when* and *how* those nodes agree on the state of the data. 

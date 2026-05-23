@@ -1,6 +1,24 @@
-# 📡 12 - Observability & Ops (SDE-2+ Excellence)
+# 📡 12 - Observability & Ops (C137-C145)
 
-You can't fix what you can't measure. Observability is about understanding the internal state of a system by looking at its outputs.
+## 🧭 Observability & Ops Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master system monitoring, debugging, and resilience operations:
+
+### 🟢 1. Foundations & Instrumentation
+*   [C137 - The Three Pillars (Metrics, Logs, Traces)](./01-Three-Pillars.md)
+*   [C138 - Metrics Collection](./02-Metrics-Collection.md)
+*   [C139 - Log Aggregation](./03-Log-Aggregation.md)
+*   [C140 - Distributed Tracing](./04-Distributed-Tracing.md)
+
+### 🟡 2. Reliability Mathematics
+*   [C141 - SLIs, SLOs, and SLAs](./05-SLI-SLO-SLA.md)
+*   [C142 - Latency Budgets & Percentiles](./06-Latency-Budgets.md)
+
+### 🔴 3. Operational Control & Troubleshooting
+*   [C143 - Alerting & On-Call Excellence](./07-Alerting.md)
+*   [C144 - Identifying Bottlenecks](./08-Identify-Bottlenecks.md)
+
+### 🟣 4. Chaos & Proactive Resiliency
+*   [C145 - Chaos Engineering](./09-Chaos-Engineering.md)
 
 ---
 

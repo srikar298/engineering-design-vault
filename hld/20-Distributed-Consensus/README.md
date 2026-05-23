@@ -1,4 +1,29 @@
-# 🤝 20 - Distributed Consensus (Raft & Paxos)
+# 🤝 20 - Distributed Consensus (C075-C088)
+
+## 🧭 Distributed Consensus Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master distributed systems primitives:
+
+### 🟢 1. Coordination & Failure Detection
+*   [C086 - Distributed Locking](./01-Distributed-Locking.md)
+*   [C087 - Fencing Tokens](./02-Fencing-Tokens.md)
+*   [C075 - Heartbeat Mechanism](./04-Heartbeat-Mechanism.md)
+*   [C082 - Leader Election](./07-Leader-Election.md)
+
+### 🟡 2. Cluster Membership & Data Integrity
+*   [C076 - Gossip Protocol](./03-Gossip-Protocol.md)
+*   [C081 - Merkle Trees](./08-Merkle-Trees.md)
+*   [C030 - Bloom Filters](../04-Caching-Deep-Dive/16-Bloom-Filters.md)
+
+### 🟡 3. Logical Time & Ordering
+*   [C077 - Lamport Timestamps](./05-Lamport-Timestamps.md)
+*   [C078 - Vector Clocks](./06-Vector-Clocks.md)
+
+### 🔴 4. Consensus Algorithms
+*   [C085 - Quorum](./11-Quorum.md)
+*   [C083 - Paxos Algorithm](./09-Paxos-Algorithm.md)
+*   [C084 - Raft Consensus](./10-Raft-Consensus.md)
+
+---
 
 ## 📖 1. The Concept
 In a distributed system with 10k nodes, how do they all agree on a single value (e.g., "Who is the Master?") despite network failures? This is **Consensus**.

@@ -38,3 +38,21 @@ Store the message in the DB with status `PENDING`. When the user reconnects (Web
 ## 🚀 5. The SDE-3 Edge: Sequence IDs
 Don't use `System.currentTimeMillis()` for message ordering (clocks drift). 
 Use a **Distributed ID Generator** (e.g., Snowflake or Zookeeper counters) to provide a monotonically increasing sequence ID for every message in a chat.
+
+---
+
+## 🔬 Tracker Diagnostics (SD008, SD015)
+
+*   **Primary Technologies:** WebSockets, Cassandra (LSM-Trees), Kafka (Fan-out), Snowflake (ID Generation).
+*   **The "Freeze Trap":** Candidates often freeze on **Group Chat scaling**. They try to push a message to 500 recipients in a single loop. (Senior Answer: Use a Message Queue like Kafka to decouple the sender from the recipients).
+*   **Architecture Checklist:**
+    *   [ ] Client ➔ WebSocket Gateway
+    *   [ ] Chat Service (Stateful connection manager)
+    *   [ ] Presence Service (Last Seen/Status)
+    *   [ ] Write-heavy Database (Cassandra/HBase)
+    *   [ ] Sequence ID Generator (Ordering)
+*   **Trade-off Audit:**
+    *   **DB:** Cassandra over SQL (Write throughput optimization).
+    *   **Protocol:** WebSockets over HTTP Polling (Real-time latency).
+    *   **Consistency:** Eventual consistency for receipts is acceptable; Strong consistency for message delivery order is mandatory.
+

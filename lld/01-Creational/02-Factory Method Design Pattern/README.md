@@ -133,6 +133,34 @@ The Factory Method pattern is overwhelmingly common in frameworks and libraries 
 
 ---
 
+## ✅ SDE-2+ Readiness Check
+*   [ ] Can you explain how Factory Method solves the "Open/Closed" violation of a Simple Factory?
+*   [ ] What is the "Class Explosion" problem and how do you decide when the pattern is overkill?
+*   [ ] Why is it a best practice to make the Product constructors package-private?
+
+---
+
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Let subclasses decide which object to create", "Decentralize object creation", "Plug-in architecture", "Open for extension, closed for modification".
+*   **SOLID Connection:** Primarily addresses **OCP** (add new product = new creator subclass) and **SRP** (separates the logic of object creation from the logic of object use).
+*   **Confuses With:** 
+    *   **Simple Factory:** (Hook: Simple Factory is a single class with a `switch` statement; Factory Method is an interface/abstract class with multiple creator subclasses).
+    *   **Abstract Factory:** (Hook: Factory Method creates ONE product type; Abstract Factory creates a **family** of related products).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public interface Creator { Product createProduct(); }
+    public class ConcreteCreator implements Creator {
+        public Product createProduct() { return new ConcreteProduct(); }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. How do you prevent a client from bypassing your factory and using `new` directly (constructor visibility)?
+    2. When is a "Simple Factory" (switch statement) actually a better choice than a "Factory Method"?
+    3. Can you explain the "Parallel Hierarchy" between Products and Creators?
+
+---
+
 ## 🌍 7. Cross-Language: Factory Method in Python, TypeScript, and Go
 
 ### 🐍 Python

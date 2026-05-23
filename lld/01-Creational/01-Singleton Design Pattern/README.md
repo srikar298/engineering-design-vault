@@ -352,3 +352,25 @@ func GetGateway() *PaymentGateway {
 - **Singleton + Factory Method** → The factory itself is often a Singleton (see `07-Combined-Patterns`)
 - **Singleton + Abstract Factory** → One platform factory per runtime (see `07-Combined-Patterns`)
 - **Singleton (Enum) ties back to** → `00-Foundations/01-OOP_Basics/05-Advanced_Enums` — Enums are the only truly unbreakable Singleton in Java
+
+---
+
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Only one instance", "Exactly one instance needed", "Global access point to shared resource", "Shared manager for stateful resources".
+*   **SOLID Connection:** Primarily addresses **SRP** by centralizing the responsibility of instance management. However, it can violate SRP if the singleton also handles too much business logic.
+*   **Confuses With:** 
+    *   **Static Utility Classes:** (Hook: Singletons are objects that can be passed as arguments, implement interfaces, and be lazily initialized; static classes are just containers for methods).
+    *   **Dependency Injection (Singleton Scope):** (Hook: DI manages the "exactly one" rule externally; the Pattern manages it internally. Seniors prefer DI).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public class Manager {
+        private static volatile Manager instance;
+        private Manager() {} // Prevent instantiation
+        public static Manager getInstance() { ... }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. Can you explain *why* `volatile` is mandatory in double-checked locking?
+    2. Do you know how to prevent breaking a singleton via Reflection and Serialization?
+    3. Can you articulate the trade-off between a manual Singleton and Spring's Singleton scope?

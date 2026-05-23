@@ -184,6 +184,34 @@ Abstract Factory allows you to test your business logic (`Application.java`) in 
 
 ---
 
+## ✅ SDE-2+ Readiness Check
+*   [ ] How does Abstract Factory enforce consistency between products?
+*   [ ] What is the biggest drawback when you need to add a *new product type* to the family?
+*   [ ] How can you combine Abstract Factory with Reflection to make it truly plug-and-play?
+
+---
+
+## 🧠 Tracker Integration
+
+*   **Trigger Phrases:** "Families of related objects", "Consistency among products", "Platform-independent UI", "Suite of products".
+*   **SOLID Connection:** Primarily addresses **DIP** (client depends on abstract factory interface) and **OCP**.
+*   **Confuses With:** 
+    *   **Factory Method:** (Hook: Factory Method = one product; Abstract Factory = multiple related products).
+    *   **Builder:** (Hook: Builder is for step-by-step construction of ONE complex object; Abstract Factory is for "all-at-once" creation of families).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public interface AbstractFactory {
+        ProductA createProductA();
+        ProductB createProductB();
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. How does Abstract Factory enforce consistency between products?
+    2. What is the biggest drawback when you need to add a *new product type* to the family?
+    3. How can you combine Abstract Factory with Reflection to make it truly plug-and-play?
+
+---
+
 ## 🌍 7. Cross-Language: Abstract Factory
 
 ### 🐍 Python

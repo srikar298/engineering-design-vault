@@ -128,3 +128,19 @@ java Main
 
 **Q: Why not just have a `PizzaFactory.create(storeType, pizzaType)` with a switch?**
 > That's a Simple Factory with two enum parameters — a cartesian product switch statement. `(3 stores × 3 pizzas) = 9 cases today`. Add 2 stores and 2 pizza types → 25 cases. Abstract Factory keeps each combination isolated in its own class.
+
+---
+
+## 🔬 Tracker Diagnostics
+
+*   **Primary Patterns:** Abstract Factory, Builder.
+*   **The "Freeze Trap":** Candidates often struggle with where to put the `Builder` — does the Factory use the Builder, or does the Client? (Senior Answer: The *Factory* uses the Builder for standard menu items; the *Client* uses the Builder for custom pizzas).
+*   **Class Design Checklist:**
+    *   [ ] `IPizzaStore` (Interface or Abstract Class)
+    *   [ ] `ItalianPizzaStore`, `AmericanPizzaStore` (Concrete Factories)
+    *   [ ] `Pizza` (Product)
+    *   [ ] `Pizza.Builder` (Inner static class for customization)
+*   **SOLID Violations to Watch For:**
+    *   **SRP:** Don't put the pricing logic inside the `Pizza` class; it belongs in a `PricingService` or `PricingStrategy`.
+    *   **OCP:** Ensure `IPizzaStore` is used everywhere in the client logic so new franchises don't break anything.
+    *   **LSP:** Don't have `ItalianPizzaStore` throw an `UnsupportedOperationException` for `createPepperoni()` if it doesn't like pepperoni; it must fulfill the contract.

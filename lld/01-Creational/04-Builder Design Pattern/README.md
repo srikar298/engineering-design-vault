@@ -15,22 +15,22 @@ The Builder pattern provides a clean, readable way to set only the parameters yo
 
 ## 📈 2. The Evolution (The Evolutionary Path)
 
-### Stage 0: Telescoping Constructor ([evolution/Stage0Telescoping.java](file:///e:/job-hunt/LLD/LLD-Design-Patterns-main/01-Creational/04-Builder%20Design%20Pattern/JAVA/evolution/Stage0Telescoping.java))
+### Stage 0: Telescoping Constructor ([evolution/Stage0Telescoping.java](./JAVA/evolution/Stage0Telescoping.java))
 Multiple constructors where each calls the next.
 - **Problem**: Hard to read, easy to swap parameters of the same type (e.g., RAM vs Storage).
 - **Result**: Maintenance nightmare.
 
-### Stage 1: JavaBeans / Setters ([evolution/Stage1JavaBeans.java](file:///e:/job-hunt/LLD/LLD-Design-Patterns-main/01-Creational/04-Builder%20Design%20Pattern/JAVA/evolution/Stage1JavaBeans.java))
+### Stage 1: JavaBeans / Setters ([evolution/Stage1JavaBeans.java](./JAVA/evolution/Stage1JavaBeans.java))
 Using an empty constructor and then setters.
 - **Problem**: The object is mutable. It can be modified after creation. It can also be used in a "half-baked" state.
 - **Result**: Thread-safety risks and consistency issues.
 
-### Stage 2: Modern Fluent Builder ([evolution/Stage2FluentBuilder.java](file:///e:/job-hunt/LLD/LLD-Design-Patterns-main/01-Creational/04-Builder%20Design%20Pattern/JAVA/evolution/Stage2FluentBuilder.java))
+### Stage 2: Modern Fluent Builder ([evolution/Stage2FluentBuilder.java](./JAVA/evolution/Stage2FluentBuilder.java))
 The "Industry Standard." A static inner class that builds the outer immutable object.
 - **Problem**: None.
 - **Result**: **Fluent API**, **Immutability**, and **Mandatory Field Validation**.
 
-### Stage 3: The Director (Classical GoF) ([builder/Main.java](file:///e:/job-hunt/LLD/LLD-Design-Patterns-main/01-Creational/04-Builder%20Design%20Pattern/JAVA/builder/Main.java))
+### Stage 3: The Director (Classical GoF) ([builder/Main.java](./JAVA/builder/Main.java))
 The classical approach where a **Director** class coordinates the builder.
 - **Use Case**: When you have a fixed construction process but different representations (e.g., building a Dell vs building an HP Desktop).
 - **Result**: High decoupling between construction logic and product details.
@@ -58,7 +58,7 @@ classDiagram
         +setRAM(String) Builder
         +build() Computer
     }
-    Computer +-- Builder : Static Inner Class
+    Computer ..> Builder : Static Inner Class
 ```
 
 ### Classical Director-based Builder
@@ -108,7 +108,55 @@ classDiagram
 
 ---
 
-## 🧠 6. FAANG Interview Q&A
+## 🚀 6. Advanced Edge Cases (SDE-2+)
+
+### 6.1 The Step Builder Pattern (Compile-Time Safety)
+A standard Fluent Builder allows `.build()` to be called at any time, which might result in a runtime exception if a mandatory field was missed. The **Step Builder Pattern** uses a chain of distinct interfaces to force the developer to set mandatory fields in a specific order at compile time.
+```java
+// Interface chain enforces order
+public interface CPUPhase { RAMPhase setCPU(String cpu); }
+public interface RAMPhase { BuildPhase setRAM(String ram); }
+public interface BuildPhase { 
+    BuildPhase setGPU(String gpu); // Optional
+    Computer build(); 
+}
+// Usage: The compiler will reject this if .setRAM() is skipped.
+Computer pc = Computer.stepBuilder().setCPU("i7").setRAM("16GB").build();
+```
+
+### 6.2 Builder with Inheritance (CRTP)
+When dealing with inheritance (e.g., `VehicleBuilder` and `CarBuilder extends VehicleBuilder`), calling a base class method `.setWheels(4)` returns a `VehicleBuilder`. This breaks fluent chaining because you can no longer call a `Car`-specific method like `.setSunroof()`.
+**The Senior Fix:** Use the **Curiously Recurring Template Pattern (CRTP)** with Java Generics.
+```java
+abstract class VehicleBuilder<T extends VehicleBuilder<T>> {
+    protected int wheels;
+    public T setWheels(int wheels) {
+        this.wheels = wheels;
+        return self(); // Abstract method returning 'this'
+    }
+    protected abstract T self();
+}
+
+class CarBuilder extends VehicleBuilder<CarBuilder> {
+    @Override protected CarBuilder self() { return this; }
+    public CarBuilder setSunroof(boolean hasSunroof) { /*...*/ return this; }
+}
+// Now chaining works perfectly:
+new CarBuilder().setWheels(4).setSunroof(true).build();
+```
+
+### 6.3 Lombok `@Builder` Production Reality
+In modern Java, you rarely write builders manually; you use Lombok. However, seniors know these edge cases:
+- **`@Builder.Default`:** If you initialize a field like `private int cores = 4;` and use `@Builder`, Lombok will ignore your default and set it to `0` if not explicitly provided. You must annotate it with `@Builder.Default`.
+- **`toBuilder = true`:** Adding `@Builder(toBuilder = true)` generates a `.toBuilder()` method on the instance. This creates a new builder initialized with the existing object's state—an elegant way to safely "copy and modify" an immutable object.
+
+### 6.4 Thread-Safety: Builder vs. Built Object
+While the final product (`Computer`) is deeply immutable and completely thread-safe, **the `Builder` instance itself is highly mutable and NOT thread-safe**. 
+- **Rule:** A Builder instance must be strictly confined to local method scope. Never store a Builder as a class field or share it across multiple threads.
+
+---
+
+## 🧠 7. FAANG Interview Q&A
 
 **Q: When should I use Builder instead of just a Constructor?**
 * **A:** Rule of thumb: If there are more than 4 parameters, or if many parameters are optional, or if the object must be immutable.
@@ -118,3 +166,33 @@ classDiagram
 
 **Q: Builder vs Abstract Factory?**
 * **A:** Builder focuses on the **step-by-step construction** of a *single* complex object. Abstract Factory focuses on creating **families** of *related* objects.
+
+---
+
+## ✅ 8. SDE-2+ Readiness Check
+*   [ ] Why is the Builder usually implemented as a static inner class?
+*   [ ] Where should the validation logic reside (the constructor or the `.build()` method)?
+*   [ ] How does the "Director" class differ from the "Fluent Builder" approach?
+
+---
+
+## 🧠 9. Tracker Integration
+
+*   **Trigger Phrases:** "Complex object construction", "Step-by-step creation", "Telescoping constructor", "Immutable object with many fields", "Fluent API".
+*   **SOLID Connection:** Primarily addresses **SRP** (isolates building logic from the product class).
+*   **Confuses With:** 
+    *   **Factory Patterns:** (Hook: Factory = *which* type to create; Builder = *how* to build a specific complex object).
+*   **Anti-Freeze Starter Code:** 
+    ```java
+    public class Product {
+        private Product(Builder b) {}
+        public static class Builder {
+            public Builder setX(int x) { return this; }
+            public Product build() { return new Product(this); }
+        }
+    }
+    ```
+*   **Self-Assessment Prompts:** 
+    1. Why is the Builder usually implemented as a static inner class?
+    2. Where should the validation logic reside (the constructor or the `.build()` method)?
+    3. How does the "Director" class differ from the "Fluent Builder" approach?

@@ -1,6 +1,22 @@
-# 🔐 11 - Security Basics (The SDE-2 Standard)
+# 🔐 11 - Security Basics (C049-C136)
 
-Security is often an afterthought in System Design interviews, but ignoring it is a red flag. You must design systems that are "Secure by Default."
+## 🧭 Security & Identity Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master cryptography, tokens, network security boundaries, and authorization protocols:
+
+### 🟢 1. Cryptographic & Token Foundations
+*   [C131 - Hashing vs. Encryption](./01-Hashing-vs-Encryption.md)
+*   [C132 - JSON Web Tokens (JWT)](./02-JWT.md)
+
+### 🟡 2. Access Control & Authorization Delegations
+*   [C133 - OAuth 2.0 & OpenID Connect (OIDC)](./04-OAuth-and-OpenID-Connect.md)
+*   [C134 - RBAC vs. ABAC](./05-RBAC-vs-ABAC.md)
+
+### 🔴 3. Network Boundaries & TLS Security
+*   [C049 - Network Security](./03-Network-Security.md)
+*   [C136 - TLS/SSL Handshake](./07-TLS-SSL-Handshake.md)
+
+### 🟣 4. Secrets Lifecycle & Operations
+*   [C135 - Secrets Management](./06-Secrets-Management.md)
 
 ---
 

@@ -1,4 +1,14 @@
-# 🛡️ 09 - System Resiliency (The SDE-3 Edge)
+# 🛡️ 09 - System Resiliency (C051-C055)
+
+## 🧭 System Resiliency Study Path
+Use this structured path aligned with your **Google Sheet Tracker** to master resiliency patterns:
+*   [C053 - Circuit Breaker](./01-Circuit-Breaker.md)
+*   [C054 - Bulkhead Pattern](./02-Bulkhead-Pattern.md)
+*   [C055 - Rate Limiting](./03-Rate-Limiting.md)
+*   [C052 - Retry with Backoff](./04-Retry-with-Backoff.md)
+*   [C051 - Timeouts](./05-Timeouts.md)
+
+---
 
 ## 📖 The Concept
 Distributed systems *will* fail. Resiliency is the ability of a system to recover from failures and continue to function, preventing a single broken component from taking down the entire architecture.

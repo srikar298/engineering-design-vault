@@ -1,6 +1,22 @@
 # ⏱️ Rate Limiter (API Guard)
 
-> **Interview Time:** 40 Minutes | **Level:** SDE-2 (Algorithm + Concurrency)
+> **Patterns:** Strategy · Singleton · Token Bucket / Leaky Bucket
+
+---
+
+## 📋 Tracker Metadata
+| Column | Value / Status |
+| :--- | :--- |
+| **Difficulty** | 🟡 Medium |
+| **SDE-2 Mandatory** | ✅ Yes |
+| **Patterns** | Strategy, Singleton |
+| **Status** | Not Started |
+| **Times Practiced** | 0 |
+| **Last Practiced** | YYYY-MM-DD |
+| **Next Review** | YYYY-MM-DD |
+
+---
+
 
 ## 📋 The Prompt
 Design a generic rate limiter that can be used to protect various APIs from being overwhelmed by too many requests.

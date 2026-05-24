@@ -32,6 +32,7 @@ This roadmap is categorized by difficulty. For each level, master the **Invarian
 5.  **[Elevator System](LEVEL-2-Intermediate/05-elevator-system/README.md)** (State pattern & SCAN scheduling algorithm) — **`🔥 Mandatory`**
 6.  **[Zepto Coupon System](LEVEL-2-Intermediate/06-zepto-coupon-system/README.md)** (Open/Closed strategy & discount decorator)
 7.  **[High-Performance Task Scheduler](LEVEL-2-Intermediate/07-task-scheduler/README.md)** (PriorityBlockingQueue & dynamic cancel thread-safety)
+8.  **[Unified Vector Database SDK](LEVEL-2-Intermediate/08-vector-db-sdk/README.md)** (AI-native client adapter, strategy similarity metrics, & LRU caching proxy)
 
 ### 📚 Conceptual / Advanced Roadmap
 *   **OYO / Airbnb** (Inventory state & overbooking prevention)
@@ -48,6 +49,9 @@ This roadmap is categorized by difficulty. For each level, master the **Invarian
 ### 🛠️ Interactive Practice Sheets (Implemented on Disk)
 1.  **[AWS S3 Service](LEVEL-3-Advanced/01-aws-s3-service/README.md)** (Metadata storage, strategies, and ACL Proxy)
 2.  **[Enterprise Chat System (Slack/WhatsApp)](LEVEL-3-Advanced/02-chat-system/README.md)** (Real-time message routing, Group Observer, & Offline proxy buffering)
+3.  **[In-Memory Message Queue](LEVEL-3-Advanced/03-in-memory-message-queue/README.md)** (Thread-safe pub-sub with consumer group rebalancing & offset commits) — **`🔥 Mandatory`**
+4.  **[Saga Distributed Transaction Orchestrator](LEVEL-3-Advanced/04-saga-orchestrator/README.md)** (Decoupled microservice mediator, state transition phases, & compensation rollbacks) — **`🔥 Mandatory`**
+5.  **[Stock Order Matching Engine](LEVEL-3-Advanced/05-stock-matching-engine/README.md)** (Limit/Market orders sorted maps matching book with price-time priority)
 
 ### 📚 Conceptual / Advanced Roadmap
 *   **Google Drive** (Version control & block-level file sync)

@@ -8,6 +8,7 @@
 | **Difficulty** | 🟡 Medium |
 | **Interview Frequency** | ⚡ Very Common |
 | **Target Companies** | Stripe, Twilio |
+| **SDE-2 Mandatory** | ✅ Yes |
 | **Status** | Not Started |
 | **Times Practiced** | 0 |
 | **Last Practiced** | YYYY-MM-DD |

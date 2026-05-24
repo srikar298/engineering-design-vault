@@ -8,6 +8,7 @@
 | **Difficulty** | 🔴 Hard |
 | **Interview Frequency** | 🔥 Must Know |
 | **Target Companies** | Google, Bing |
+| **SDE-2 Mandatory** | ❌ No |
 | **Status** | Not Started |
 | **Times Practiced** | 0 |
 | **Last Practiced** | YYYY-MM-DD |

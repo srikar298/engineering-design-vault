@@ -8,6 +8,7 @@
 | **Difficulty** | 🔴 Hard |
 | **Interview Frequency** | ⚡ Very Common |
 | **Target Companies** | Airbnb, Booking |
+| **SDE-2 Mandatory** | ✅ Yes |
 | **Status** | Not Started |
 | **Times Practiced** | 0 |
 | **Last Practiced** | YYYY-MM-DD |

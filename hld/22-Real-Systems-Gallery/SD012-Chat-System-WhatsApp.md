@@ -8,6 +8,7 @@
 | **Difficulty** | 🔴 Hard |
 | **Interview Frequency** | 🔥 Must Know |
 | **Target Companies** | Meta, WeChat |
+| **SDE-2 Mandatory** | ✅ Yes |
 | **Status** | Not Started |
 | **Times Practiced** | 0 |
 | **Last Practiced** | YYYY-MM-DD |

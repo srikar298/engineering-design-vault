@@ -1,6 +1,22 @@
 # 📥 Internet Download Manager (IDM)
 
-> **Interview Time:** 45 Minutes | **Level:** SDE-2 (Concurrency Focus)
+> **Patterns:** State · Observer · Builder / Thread-safe Queue
+
+---
+
+## 📋 Tracker Metadata
+| Column | Value / Status |
+| :--- | :--- |
+| **Difficulty** | 🟡 Medium |
+| **SDE-2 Mandatory** | ❌ No |
+| **Patterns** | State, Observer |
+| **Status** | Not Started |
+| **Times Practiced** | 0 |
+| **Last Practiced** | YYYY-MM-DD |
+| **Next Review** | YYYY-MM-DD |
+
+---
+
 
 ## 📋 The Prompt
 Design a download manager that can download a large file by splitting it into multiple smaller chunks and downloading them in parallel.

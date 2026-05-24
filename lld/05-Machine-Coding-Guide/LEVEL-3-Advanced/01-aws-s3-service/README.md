@@ -1,6 +1,22 @@
 # 🪣 AWS S3 Service (Object Storage)
 
-> **Interview Time:** 45 Minutes | **Level:** SDE-3 (Infrastructure Focus)
+> **Patterns:** Composite · Strategy · Proxy · Builder
+
+---
+
+## 📋 Tracker Metadata
+| Column | Value / Status |
+| :--- | :--- |
+| **Difficulty** | 🔴 Hard |
+| **SDE-2 Mandatory** | ❌ No |
+| **Patterns** | Composite, Strategy, Proxy |
+| **Status** | Not Started |
+| **Times Practiced** | 0 |
+| **Last Practiced** | YYYY-MM-DD |
+| **Next Review** | YYYY-MM-DD |
+
+---
+
 
 ## 📋 The Prompt
 Design the internals of an object storage service like AWS S3.

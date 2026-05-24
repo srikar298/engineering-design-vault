@@ -1,6 +1,22 @@
 # 🍿 Movie Ticket Booking System (BookMyShow)
 
-> **Interview Time:** 35-45 Minutes | **Level:** SDE-2+ (Concurrency Focus)
+> **Patterns:** Singleton · Factory · Proxy · Lock Synchronization
+
+---
+
+## 📋 Tracker Metadata
+| Column | Value / Status |
+| :--- | :--- |
+| **Difficulty** | 🟡 Medium |
+| **SDE-2 Mandatory** | ✅ Yes |
+| **Patterns** | Singleton, Factory, Proxy |
+| **Status** | Not Started |
+| **Times Practiced** | 0 |
+| **Last Practiced** | YYYY-MM-DD |
+| **Next Review** | YYYY-MM-DD |
+
+---
+
 
 ## 📋 The Prompt
 Design a movie ticket booking system where users can browse movies in different cities, select a cinema, and book specific seats for a show.

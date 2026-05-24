@@ -1,6 +1,6 @@
-# 🏢 22 - Real-Systems Gallery (SD001-SD053)
+# 🏢 22 - Real-Systems Gallery (SD001-SD057)
 
-This gallery acts as an interactive workbook for your system design interview preparation. It contains practice sheets and solution placeholders for **53 classic high-level design problems**.
+This gallery acts as an interactive workbook for your system design interview preparation. It contains practice sheets and solution placeholders for **57 classic high-level design problems**.
 
 To guarantee mastery, the problems are organized in a **progressive, step-by-step practice sequence** below (from fundamental building blocks to advanced specialized platforms).
 
@@ -86,6 +86,7 @@ To guarantee mastery, the problems are organized in a **progressive, step-by-ste
 | `SD039` | [Payment System](./SD039-Payment-System.md) | Finance | 🔴 Expert | ⚡ Very Common | **🔥 Mandatory** | **Not Started** |
 | `SD040` | [Stock Exchange](./SD040-Stock-Exchange.md) | Finance | 🔴 Expert | ⚡ Very Common | **—** | **Not Started** |
 | `SD038` | [Fraud Detection System](./SD038-Fraud-Detection-System.md) | Finance | 🔴 Expert | ❄️ Advanced | **—** | **Not Started** |
+| `SD056` | [Double-Entry Ledger](./SD056-Design-Stripe-Ledger.md) | Finance | 🔴 Expert | 🔥 Must Know | **🔥 Mandatory** | **Completed** |
 
 ## 🗺️ Phase 8: Large-Scale Streaming & Concurrency
 
@@ -99,6 +100,7 @@ To guarantee mastery, the problems are organized in a **progressive, step-by-ste
 | `SD014` | [Online Auction](./SD014-Online-Auction.md) | Concurrency | 🔴 Hard | 🟡 Medium | **—** | **Not Started** |
 | `SD037` | [Design Ticketmaster](./SD037-Design-Ticketmaster.md) | Concurrency | 🔴 Expert | 🟡 Medium | **—** | **Not Started** |
 | `SD053` | [Online Gaming Platform](./SD053-Online-Gaming-Platform.md) | Streaming | 🔴 Expert | ❄️ Advanced | **—** | **Not Started** |
+| `SD057` | [Multiplayer Matchmaker](./SD057-Design-Valorant-Matchmaker.md) | Streaming | 🔴 Expert | ⚡ Very Common | **—** | **Completed** |
 
 ## 🗺️ Phase 9: Enterprise Analytics & Platforms
 
@@ -115,6 +117,15 @@ To guarantee mastery, the problems are organized in a **progressive, step-by-ste
 | `SD010` | [Price Tracking Service](./SD010-Price-Tracking-Service.md) | Analytics | 🔴 Hard | 🟡 Medium | **—** | **Not Started** |
 | `SD011` | [Top-K Trending](./SD011-Top-K-Trending.md) | Analytics | 🔴 Hard | 🟡 Medium | **—** | **Not Started** |
 | `SD001` | [Global Leaderboard](./SD001-Global-Leaderboard.md) | Analytics | 🟡 Medium | 🟡 Medium | **—** | **Not Started** |
+
+## 🗺️ Phase 10: AI-Native & Large-Language Model Infrastructure
+
+> **Overview:** Architect high-throughput inference serving pipelines and semantic search indexes.
+
+| ID | Problem Name | Category | Difficulty | Frequency | SDE-2 Target | Status |
+| :--- | :--- | :--- | :--- | :--- | :--- | :--- |
+| `SD054` | [ChatGPT LLM Serving](./SD054-Design-ChatGPT-LLM-Serving.md) | AI Infra | 🔴 Expert | 🔥 Must Know | **🔥 Mandatory** | **Completed** |
+| `SD055` | [Vector Database RAG](./SD055-Design-Vector-Database-RAG.md) | AI Infra | 🔴 Expert | 🔥 Must Know | **🔥 Mandatory** | **Completed** |
 
 ---
 

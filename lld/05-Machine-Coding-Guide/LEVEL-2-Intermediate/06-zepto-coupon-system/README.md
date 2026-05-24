@@ -1,6 +1,22 @@
 # 🏷️ Zepto Coupon System
 
-> **Interview Time:** 35 Minutes | **Level:** SDE-2 (OCP Focus)
+> **Patterns:** Strategy · Decorator · Factory
+
+---
+
+## 📋 Tracker Metadata
+| Column | Value / Status |
+| :--- | :--- |
+| **Difficulty** | 🟡 Medium |
+| **SDE-2 Mandatory** | ❌ No |
+| **Patterns** | Strategy, Decorator, Factory |
+| **Status** | Not Started |
+| **Times Practiced** | 0 |
+| **Last Practiced** | YYYY-MM-DD |
+| **Next Review** | YYYY-MM-DD |
+
+---
+
 
 ## 📋 The Prompt
 Design a flexible coupon and discount system for a quick-commerce platform like Zepto.

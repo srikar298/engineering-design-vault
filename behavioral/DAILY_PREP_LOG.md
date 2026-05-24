@@ -1,5 +1,39 @@
 # ⚡ Daily Prep Log (Sheet 2)
 
+---
+
+## 🟢 QUICK MODE — Use This Daily (6 Columns)
+
+> Open [COCKPIT.md](file:///e:/job-hunt/LLD/LLD-Design-Patterns-main/behavioral/COCKPIT.md) first. Come back here only to log.
+
+Copy these 6 column headers into Google Sheet **Sheet: Quick_Log**, Row 1:
+
+```
+Date | Story_Used | Question_Category | Duration_Sec | Filler_Count | Hire_Signal
+```
+
+**Hire_Signal values**: `Y` (felt sharp, specific, had metric) / `N` (vague, rushed, no metric)
+
+### 📋 Weekly Hire Rate Formula (paste into a summary cell):
+```excel
+=TEXT(COUNTIF(F2:F100,"Y")/COUNTA(F2:F100),"0%") & " hire rate this week"
+```
+
+### 📋 Filler Trend Formula:
+```excel
+=IFERROR(AVERAGE(E2:E100),"No data") & " avg fillers/session"
+```
+
+> **Switch to Advanced Mode below only once per week** for a deeper audit.
+
+---
+
+## 🔵 ADVANCED MODE — Weekly Audit (26 Columns)
+
+*Use this for your end-of-week retrospective, not daily.*
+
+
+
 The **Daily Prep Log** is your ledger of execution. Every day you practice, you record a row here. Over 8 weeks, this log builds the momentum and consistency needed to pass senior-level loops.
 
 ---

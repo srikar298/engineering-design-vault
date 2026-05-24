@@ -2,7 +2,16 @@
 
 > **"Your stories are your proof. Your delivery is your brand."**
 
-Welcome to the **Behavioral Interview Mastery OS**. This workspace serves as the single source of truth for all your behavioral context, narrative scripts, company research, and master questionnaires. The accompanying Google Sheet is used *solely* to log metrics and numeric grades.
+---
+
+## ⚡ Start Here Every Day
+
+> **→ Open [`COCKPIT.md`](file:///e:/job-hunt/LLD/LLD-Design-Patterns-main/behavioral/COCKPIT.md) ← This is the only file you need for your daily 20-min session.**
+> Everything else in this folder is reference depth. COCKPIT abstracts it all.
+
+---
+
+ This workspace serves as the single source of truth for all your behavioral context, narrative scripts, company research, and master questionnaires. The accompanying Google Sheet is used *solely* to log metrics and numeric grades.
 
 ---
 

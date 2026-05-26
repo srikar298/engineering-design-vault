@@ -58,7 +58,7 @@ This document maps the **Concept IDs (C001-C112)** from your tracking sheet to t
 | **C066** | Consistent Hashing | `hld/03-Load-Balancing/README.md` | ✅ Solid |
 | **C067-69** | Leader Election, Raft, Paxos | `hld/20-Distributed-Consensus/README.md` | ✅ Solid |
 | **C070-71** | Vector/Lamport Clocks | `hld/20-Distributed-Consensus/08-Vector-and-Lamport-Clocks.md` | ✅ Solid *(fixed 2026-05-26)* |
-| **C072** | Gossip Protocol | `hld/20-Distributed-Consensus/README.md` | 🟡 Thin |
+| **C072** | Gossip Protocol | `hld/20-Distributed-Consensus/03-Gossip-Protocol.md` | ✅ Solid *(fixed 2026-05-26)* |
 | **C073** | Bloom Filters | `hld/04-Caching-Deep-Dive/07-Bloom-Filters.md` | ✅ Solid *(fixed 2026-05-26)* |
 | **C074** | Merkle Trees | `hld/07-Database-Scaling/06-Merkle-Trees.md` | ✅ Solid *(fixed 2026-05-26)* |
 | **C075** | Distributed Locking | `hld/20-Distributed-Consensus/09-Distributed-Locking.md` | ✅ Solid *(fixed 2026-05-26)* |
@@ -86,19 +86,26 @@ This document maps the **Concept IDs (C001-C112)** from your tracking sheet to t
 ## 🏗️ ACTION PLAN: Status Update (2026-05-26)
 
 ### ✅ Resolved This Session
-- **C020** Content Negotiation → `hld/19-API-Design-gRPC-vs-REST/README.md` (full rewrite)
-- **C070-71** Vector/Lamport Clocks → `hld/20-Distributed-Consensus/08-Vector-and-Lamport-Clocks.md` (427 lines)
-- **C073** Bloom Filters → `hld/04-Caching-Deep-Dive/07-Bloom-Filters.md` (460 lines)
-- **C074** Merkle Trees → `hld/07-Database-Scaling/06-Merkle-Trees.md` (513 lines)
-- **C075** Distributed Locking → `hld/20-Distributed-Consensus/09-Distributed-Locking.md` (455 lines)
-- **C089** Sidecar Pattern → `hld/13-Architectural-Patterns/19-Sidecar-and-Ambassador-Pattern.md` (564 lines)
-- **C099-101** Strangler Fig + ACL → `hld/13-Architectural-Patterns/18-Strangler-Fig-and-ACL.md` (429 lines)
-- **Cursor Pagination** → `hld/19-API-Design-gRPC-vs-REST/02-Pagination-Strategies.md` (new file)
+* **C072** Gossip Protocol → `hld/20-Distributed-Consensus/03-Gossip-Protocol.md` (387 lines)
+* **Consistent Hashing** → `hld/03-Load-Balancing/01-Consistent-Hashing.md` (436 lines)
+* **Cache Stampede** → `hld/04-Caching-Deep-Dive/12-Cache-Stampede.md` (439 lines)
+* **B-Trees vs LSM-Trees** → `hld/05-Databases/07-B-Trees-vs-LSM-Trees.md` (298 lines)
+* **Saga Pattern** → `hld/08-Distributed-Transactions/02-Saga-Pattern.md` (442 lines)
+* **Outbox Pattern** → `hld/13-Architectural-Patterns/08-Outbox-Pattern.md` (391 lines)
+* **Rate Limiting** → `hld/09-System-Resiliency/03-Rate-Limiting.md` (452 lines)
+* **Circuit Breaker** → `hld/09-System-Resiliency/01-Circuit-Breaker.md` (435 lines)
+* **C020** Content Negotiation → `hld/19-API-Design-gRPC-vs-REST/README.md` (full rewrite)
+* **C070-71** Vector/Lamport Clocks → `hld/20-Distributed-Consensus/08-Vector-and-Lamport-Clocks.md` (427 lines)
+* **C073** Bloom Filters → `hld/04-Caching-Deep-Dive/07-Bloom-Filters.md` (460 lines)
+* **C074** Merkle Trees → `hld/07-Database-Scaling/06-Merkle-Trees.md` (513 lines)
+* **C075** Distributed Locking → `hld/20-Distributed-Consensus/09-Distributed-Locking.md` (455 lines)
+* **C089** Sidecar Pattern → `hld/13-Architectural-Patterns/19-Sidecar-and-Ambassador-Pattern.md` (564 lines)
+* **C099-101** Strangler Fig + ACL → `hld/13-Architectural-Patterns/18-Strangler-Fig-and-ACL.md` (429 lines)
+* **Cursor Pagination** → `hld/19-API-Design-gRPC-vs-REST/02-Pagination-Strategies.md` (new file)
 
 ### 🟡 Still Remaining (Thin — needs expansion)
 - **C007-C010** Linearizability, Causal Consistency, Read-Your-Writes, Monotonic Reads (in `10-Consistency-Models`)
 - **C014** Server-Sent Events (thin in `01-Networking-Basics`)
 - **C027** Connection Pooling (thin in `05-Databases`)
 - **C028** Query Optimization (thin in `05-Databases`)
-- **C072** Gossip Protocol (thin in `20-Distributed-Consensus`)
 - **C085** Service Mesh (now partially covered in `19-Sidecar-and-Ambassador-Pattern.md`)

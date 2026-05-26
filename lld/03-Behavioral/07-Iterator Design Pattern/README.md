@@ -150,3 +150,187 @@ public IEnumerable<int> GetNumbers() {
     yield return 3;
 }
 ```
+
+---
+
+## 🌐 8. Real-World Extension: Cursor-Based Pagination as a DB Iterator
+
+> **This is the most important real-world application of the Iterator pattern in backend engineering.**
+> When interviewers ask "how would you paginate a billion-row table?", this is the answer.
+> Full HLD coverage: [02-Pagination-Strategies.md](file:///e:/job-hunt/LLD/LLD-Design-Patterns-main/hld/19-API-Design-gRPC-vs-REST/02-Pagination-Strategies.md)
+
+### The Problem with Naive DB Pagination
+
+The Lazy Evaluation approach mentioned in Section 4 used `OFFSET` internally:
+```java
+// ❌ What most engineers write — breaks at scale
+// SELECT * FROM posts ORDER BY created_at DESC LIMIT 20 OFFSET 50000;
+// The DB scans 50,020 rows, discards 50,000, returns 20. O(N).
+```
+At scale: `OFFSET 500,000,000` → full table scan on every page load.
+
+### The Iterator Pattern Solution: Cursor as Position State
+
+Instead of "skip N rows", encode the **last seen row's position** as the iterator's internal state — a **cursor**. The DB uses an index seek directly to that position.
+
+```
+Standard Iterator:         DB Cursor Iterator:
+┌────────────────────┐     ┌──────────────────────────────────────┐
+│ ProductIterator    │     │ PostCursorIterator                   │
+│ ──────────────     │     │ ───────────────────                  │
+│ cursor: int = 3    │ →   │ lastSeenId:        long = 1023       │
+│                    │     │ lastSeenTimestamp:  long = 1695000000│
+│ getNext():         │     │                                      │
+│   list.get(3++)    │     │ nextPage():                          │
+│                    │     │   WHERE (ts, id) < (:ts, :id)        │
+└────────────────────┘     │   ORDER BY ts DESC, id DESC          │
+                           │   LIMIT 20  ← O(log N) index seek   │
+                           └──────────────────────────────────────┘
+```
+
+### Full Java Implementation
+
+```java
+// ─── Cursor payload (what the cursor encodes) ────────────────────
+public class CursorPayload {
+    public final long id;
+    public final long timestamp;
+
+    public CursorPayload(long id, long timestamp) {
+        this.id = id;
+        this.timestamp = timestamp;
+    }
+}
+
+// ─── The Iterator Interface ───────────────────────────────────────
+public interface IPageIterator<T> {
+    boolean hasNextPage();
+    List<T> nextPage();
+    String  getNextCursor(); // opaque token returned to client
+}
+
+// ─── Concrete DB Cursor Iterator ─────────────────────────────────
+public class PostCursorIterator implements IPageIterator<Post> {
+
+    private final PostRepository repository;
+    private final int pageSize;
+
+    // Iterator STATE — this IS the cursor (position bookmark)
+    private Long    lastSeenId        = null;
+    private Long    lastSeenTimestamp = null;
+    private boolean hasMore           = true;
+
+    // First page (no cursor)
+    public PostCursorIterator(PostRepository repo, int pageSize) {
+        this.repository = repo;
+        this.pageSize   = pageSize;
+    }
+
+    // Resume from a client-supplied cursor token
+    public PostCursorIterator(PostRepository repo, int pageSize,
+                               String cursorToken) {
+        this(repo, pageSize);
+        CursorPayload p   = CursorEncoder.decode(cursorToken);
+        this.lastSeenId        = p.id;
+        this.lastSeenTimestamp = p.timestamp;
+    }
+
+    @Override public boolean hasNextPage() { return hasMore; }
+
+    @Override
+    public List<Post> nextPage() {
+        // Fetch one extra row to cheaply detect if a next page exists
+        List<Post> page = (lastSeenId == null)
+            ? repository.findFirstPage(pageSize + 1)
+            : repository.findPageAfterCursor(          // keyset seek
+                lastSeenTimestamp, lastSeenId, pageSize + 1);
+        // SQL: WHERE (created_at, id) < (:ts, :id)
+        //      ORDER BY created_at DESC, id DESC
+        //      LIMIT pageSize + 1
+
+        hasMore = (page.size() > pageSize);
+        if (hasMore) page = page.subList(0, pageSize);
+
+        // Advance iterator STATE to position of last returned item
+        if (!page.isEmpty()) {
+            Post last          = page.get(page.size() - 1);
+            lastSeenId        = last.getId();
+            lastSeenTimestamp = last.getCreatedAt();
+        }
+        return page;
+    }
+
+    @Override
+    public String getNextCursor() {
+        return (lastSeenId == null)
+            ? null
+            : CursorEncoder.encode(lastSeenId, lastSeenTimestamp);
+    }
+}
+
+// ─── Opaque cursor encoding (hides DB schema from clients) ───────
+public class CursorEncoder {
+    public static String encode(long id, long ts) {
+        String raw = String.format("{\"id\":%d,\"ts\":%d}", id, ts);
+        return Base64.getUrlEncoder().withoutPadding()
+                     .encodeToString(raw.getBytes(StandardCharsets.UTF_8));
+    }
+
+    public static CursorPayload decode(String token) {
+        String json = new String(
+            Base64.getUrlDecoder().decode(token), StandardCharsets.UTF_8);
+        // parse {"id":1023,"ts":1695000000}
+        long id = Long.parseLong(json.split("\"id\":")[1].split(",")[0]);
+        long ts = Long.parseLong(json.split("\"ts\":")[1].split("}")[0]);
+        return new CursorPayload(id, ts);
+    }
+}
+
+// ─── The Collection — factory that creates the iterator ──────────
+public class PostFeed {
+    private final PostRepository repository;
+    private static final int PAGE_SIZE = 20;
+
+    public IPageIterator<Post> createIterator() {
+        return new PostCursorIterator(repository, PAGE_SIZE);
+    }
+
+    public IPageIterator<Post> createIterator(String cursorToken) {
+        return new PostCursorIterator(repository, PAGE_SIZE, cursorToken);
+    }
+}
+
+// ─── API layer — surfaces the iterator to HTTP clients ───────────
+// GET /api/posts?after=<cursor>&limit=20
+public PaginatedResponse<Post> getPosts(String afterCursor) {
+    PostFeed feed           = new PostFeed(repository);
+    IPageIterator<Post> it  = (afterCursor != null)
+        ? feed.createIterator(afterCursor)
+        : feed.createIterator();
+
+    List<Post> posts        = it.nextPage();
+    return new PaginatedResponse<>(posts, it.getNextCursor(), it.hasNextPage());
+}
+```
+
+### Required DB Index
+```sql
+-- The iterator generates: WHERE (created_at, id) < (:ts, :id)
+--                          ORDER BY created_at DESC, id DESC
+-- Without this index the seek degrades to a full O(N) scan:
+CREATE INDEX idx_posts_cursor ON posts (created_at DESC, id DESC);
+```
+
+### Pattern Mapping
+
+| Iterator Concept | Cursor Pagination Equivalent |
+| :--- | :--- |
+| `cursor: int` (position) | `lastSeenId + lastSeenTimestamp` |
+| `hasNext()` | `hasNextPage()` — detected via `LIMIT n+1` trick |
+| `getNext()` | `nextPage()` — keyset SQL seek, O(log N) |
+| `createIterator()` | API handler creates fresh iterator per request |
+| State lives in Iterator, not Collection | Cursor lives in request param, not DB session |
+
+### Interview One-Liner
+
+> *"Cursor-based pagination IS the Iterator pattern applied to stateless distributed database traversal. The cursor encodes the iterator's current position. Each API request resumes the iterator from where the client left off — no server-side session state required, O(log N) per page via index seek."*

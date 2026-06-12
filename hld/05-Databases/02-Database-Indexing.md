@@ -23,20 +23,38 @@
 ---
 
 ## ⚖️ 2. Trade-offs & Deep Dive
-| Index Type | How it works | Best For | Trade-off |
-| :--- | :--- | :--- | :--- |
-| **B-Tree** | Self-balancing tree structure. Keeps data sorted. | Range queries, sorting, inequalities (`<`, `>`). | Balanced, but occupies storage. (Default). |
-| **Hash Index** | Computes hash value of column data. | Exact match lookups (`=`). | Cannot perform range queries or sort operations. |
-| **GIN (Inverted)** | Maps composite values to row IDs. | Full-text search, JSONB documents. | High write amplification on update/insert. |
-
-*   **Ideal Use Cases:**
-    *   Columns heavily queried in `WHERE` clauses, join keys (foreign keys), or sort columns (`ORDER BY`).
-*   **Anti-Patterns / When NOT to use:**
-    *   Columns with low selectivity (e.g., boolean values like `is_active` where scanning the table is faster than traversing the index tree and fetching pages).
+| Index Type | Internal Structure | Best For | Trade-off | Found In |
+| :--- | :--- | :--- | :--- | :--- |
+| **B-Tree / B+Tree** | Self-balancing tree. Leaf nodes contain data (clustered) or pointers (non-clustered). | Range queries, exact matches, sorting. | Read-optimized. High write penalty (page splits). | [PostgreSQL](../24-components-library/01-Databases/SQL/L001-PostgreSQL/README.md), [MySQL](../24-components-library/01-Databases/SQL/L002-MySQL/README.md) |
+| **LSM-Tree** | MemTable in RAM, immutable SSTables on disk. | Massive write velocity, append-only logs. | Write-optimized. Slower reads due to scanning multiple SSTables. | [Cassandra](../24-components-library/01-Databases/NoSQL_WideColumn/L004-Cassandra/README.md), [DynamoDB](../24-components-library/01-Databases/NoSQL_WideColumn/L005-DynamoDB/README.md) |
+| **Hash Index** | Hash function maps key to specific memory bucket. | Ultra-fast exact match lookups (`=`). | Cannot perform range queries (`<`, `>`) or sorting. | [Redis](../24-components-library/01-Databases/NoSQL_KV/L006-Redis/README.md) |
+| **Inverted Index (GIN)** | Maps terms/words to a list of Document IDs. | Full-text search, JSONB document querying. | Extremely high write amplification on update. | [Elasticsearch](../24-components-library/09-Search_Engines/L007-Elasticsearch/README.md) |
+| **Geospatial (R-Tree)** | Bounding boxes containing spatial data points. | Finding nearby points (e.g., Uber matching). | Complex to update as bounding boxes overlap. | [PostGIS](../24-components-library/01-Databases/Geospatial/L067-PostGIS/README.md) |
 
 ---
 
-## 💥 3. Resiliency & Operations
+## 🧠 3. Advanced Indexing Concepts (SDE-3 Level)
+
+### 1. Clustered vs Non-Clustered Indexes
+*   **Clustered:** The physical data rows are stored *inside* the leaf nodes of the index. A table can only have **one** clustered index (usually the Primary Key). Lookups are extremely fast because the data is contiguous on disk.
+*   **Non-Clustered (Secondary):** The leaf node contains a *pointer* (or a copy of the Primary Key) referencing the actual data row. Querying requires a **Double Lookup**: traverse the secondary index $\rightarrow$ find the PK $\rightarrow$ traverse the clustered index to fetch the row.
+
+### 2. The "Covering Index" (Index-Only Scan)
+If a query `SELECT name FROM users WHERE id = 5` is executed, and both `id` and `name` are present in the index itself, the database can return the result *without ever hitting the disk to read the actual table row*. This is the holy grail of read optimization.
+
+### 3. Composite Indexes & The Left-Prefix Rule
+If you create an index on `(last_name, first_name)`:
+*   `WHERE last_name = 'Smith'` $\rightarrow$ **Uses Index**
+*   `WHERE last_name = 'Smith' AND first_name = 'John'` $\rightarrow$ **Uses Index**
+*   `WHERE first_name = 'John'` $\rightarrow$ **Full Table Scan (Fails!)**
+*   *Rule:* Composite indexes only work if you query from left-to-right without skipping columns.
+
+### 4. Bloom Filters (LSM-Tree Secret Weapon)
+Because LSM-Trees (Cassandra, [RocksDB](../24-components-library/01-Databases/Embedded/L068-RocksDB/README.md)) must check multiple disk files (SSTables) for a read, they use Bloom Filters in memory. A Bloom filter can answer "Is this key in this file?" with "Definitely No" or "Probably Yes." This prevents unnecessary disk reads.
+
+---
+
+## 💥 4. Resiliency & Operations
 *   **Observability (The "Signal"):**
     *   `Sequential Scan vs Index Scan Ratio`: High sequential scan counts on large tables indicate missing indices.
     *   `Write Amplification Factor`: Spikes in DB write IOPs relative to application updates indicate too many indices on a table.
@@ -45,14 +63,14 @@
 
 ---
 
-## 🚫 4. Interview Playbook
+## 🚫 5. Interview Playbook
 *   **Common Mistakes:**
-    *   Indexing every column in a table thinking it makes the DB faster (every index slows down inserts/updates because the index structures must be modified).
-    *   Not knowing that indices should fit in RAM (if the index exceeds memory limits, the DB thrashes the disk).
+    *   Indexing every column in a table thinking it makes the DB faster. *Reality: Every index heavily penalizes `INSERT`/`UPDATE` speed because multiple data structures must be modified synchronously.*
+    *   Adding an index on low-selectivity columns (e.g., a boolean `is_active`). If the query returns 50% of the table, a sequential scan is actually faster than traversing a B-Tree and fetching scattered disk pages.
 *   **Interview Tip (The "Strong Hire" Signal):**
-    *   Mention index locking: *"When adding indices to production systems, I will always use `CONCURRENTLY` modifiers in Postgres. This prevents the index creation from acquiring a ShareShareLock, which blocks concurrent writes."*
+    *   State: *"To optimize read latency for this microservice, I will introduce a composite covering index. However, I must be mindful of the write amplification this introduces. During rollout, I will ensure we use a concurrent index build to avoid acquiring a Write Lock on the production table."*
 
 ---
 
-## 💡 5. My Custom Study Notes & Whiteboard
+## 💡 6. My Custom Study Notes & Whiteboard
 *Use this section to document your sketches, code blocks, or personal notes.*

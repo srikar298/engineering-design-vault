@@ -41,13 +41,13 @@ This is the most critical insight for Senior LLD.
 Check these Java examples for a practical deep dive:
 
 ### 🔰 Level 1: Notification System (The Switch Trap)
-- ☣️ **Violation**: [NotificationViolation.java](NotificationViolation.java)
-- ✅ **Refactored**: [NotificationRefactored.java](NotificationRefactored.java)
+- ☣️ **Violation**: [NotificationViolation.java](01-Notification_System/NotificationViolation.java)
+- ✅ **Refactored**: [NotificationRefactored.java](01-Notification_System/NotificationRefactored.java)
 - **Extension Point**: Adding a new channel (e.g., WhatsApp).
 
 ### 🥈 Level 2: Discount & Payment (Composition Mastery)
-- ☣️ **Violation**: [PaymentViolation.java](PaymentViolation.java)
-- ✅ **Refactored**: [PaymentRefactored.java](PaymentRefactored.java)
+- ☣️ **Violation**: [OCPPaymentViolation.java](02-Discount_And_Payment/OCPPaymentViolation.java)
+- ✅ **Refactored**: [OCPPaymentRefactored.java](02-Discount_And_Payment/OCPPaymentRefactored.java)
 - **Extension Point**: Adding new Payment Methods OR Discount Strategies independently.
 
 ---
@@ -57,6 +57,7 @@ A Staff Engineer knows that OCP is an **investment**. Don't apply it to:
 1. **Simple CRUD**: If behavior doesn't vary, don't add indirection.
 2. **One-Off Logic**: Migrations or scripts that run once and die.
 3. **Dead-End Systems**: Internal tools with no roadmap for evolution.
+- **Code Example**: [PragmaticOCP.java](04-Pragmatic_Example/PragmaticOCP.java)
 
 ---
 
@@ -83,6 +84,7 @@ True OCP allows you to test new features by only writing **New Tests**.
 ### 4. OCP at Architectural Scale (Plugins)
 - Don't just think classes. Think **Plugins** (VS Code, Chrome Extensions) and **APIs**.
 - **Summary**: A well-designed system is a "Platform" where new features are just "Plugins" that the platform doesn't even know exist until runtime.
+- **Code Example**: [OCPPluginSDE2.java](03-Plugin_Architecture/OCPPluginSDE2.java)
 
 ---
 

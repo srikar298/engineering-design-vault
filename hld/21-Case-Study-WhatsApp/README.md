@@ -1,6 +1,6 @@
 # 📱 21 - Case Study: Design WhatsApp (Gold-Standard Walkthrough)
 
-This case study follows the **[HLD Delivery Framework](../HLD_DELIVERY_FRAMEWORK.md)** to demonstrate a Senior-level interview performance.
+This case study follows the **[HLD Delivery Framework](../000-HLD_DELIVERY_FRAMEWORK.md)** to demonstrate a Senior-level interview performance.
 
 ---
 

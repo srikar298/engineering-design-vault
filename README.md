@@ -17,7 +17,7 @@ The repository is organized into five core pillars:
 - **System Design Fundamentals:** Networking, Load Balancing, Caching, and Databases.
 - **Advanced Architecture:** Microservices, Event-Driven Architecture, Multi-Region scaling.
 - **Case Studies:** Real-world system design breakdowns (e.g., WhatsApp).
-- **Frameworks:** [System Design Delivery Framework](./hld/HLD_DELIVERY_FRAMEWORK.md) and the [HLD Master Roadmap](./hld/HLD_MASTER_ROADMAP.md).
+- **Frameworks:** [System Design Delivery Framework](./hld/000-HLD_DELIVERY_FRAMEWORK.md) and the [HLD Concept Dictionary](./hld/README.md).
 
 ### 2. 🧩 [Low-Level Design (LLD)](./lld/)
 *Mastering Object-Oriented Programming (OOP), Design Patterns, and Machine Coding.*

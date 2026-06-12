@@ -256,4 +256,4 @@ Apply your theoretical foundations to real-world system design questions:
 *   [🌐 2025 HLD Master Guide: The SDE-2+ Standard](./2025_HLD_SDE2_MASTER_GUIDE.md)
 *   [📚 DDIA Master Synopsis: Theory to Architecture](./DDIA-MASTER-SYNOPSIS.md)
 *   [🚀 HLD Delivery Framework: The 45-Minute Interview Strategy](./HLD_DELIVERY_FRAMEWORK.md)
-*   [🗺️ HLD Mastery OS: Gap Analysis & Alignment Map](./HLD_GAP_ANALYSIS.md)
+*   [🧰 HLD Components Library: System Design Building Blocks](./24-components-library/README.md)

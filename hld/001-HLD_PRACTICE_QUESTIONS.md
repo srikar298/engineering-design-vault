@@ -39,8 +39,11 @@ To master High-Level Design, you must move from "knowing components" to "designi
 
 ## 💡 How to Practice
 1.  **Pick a Problem**: Give yourself 45 minutes.
-2.  **Use the [Delivery Framework](./HLD_DELIVERY_FRAMEWORK.md)**: Don't skip steps.
+2.  **Use the [Delivery Framework](./000-HLD_DELIVERY_FRAMEWORK.md)**: Don't skip steps.
 3.  **Identify the "Pivot"**: Every HLD question has one core problem (e.g., "Scaling writes" or "Global low latency"). Find it early.
 4.  **Self-Critique**: Where is the single point of failure? How much will this cost? What happens if the network partitions (CAP)?
 
 ---
+
+## 📚 Ready for More?
+Once you have mastered this curated starter pack, move on to the **[Real-Systems Gallery](./22-Real-Systems-Gallery/README.md)** for a comprehensive, 57-problem workbook.

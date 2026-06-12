@@ -1,55 +1,61 @@
-# 🏗️ Engineering Design Vault
+# 🏗️ Engineering Design Vault: System Design, LLD, and Architecture
 
-Welcome to the **Engineering Design Vault**—a comprehensive, multi-dimensional knowledge base for **Software Architecture**, **System Design**, and **Clean Engineering**.
+Welcome to the **Engineering Design Vault**—a comprehensive, multi-dimensional knowledge base curated for software engineers, tech leads, and software architects preparing for technical interviews and building scalable systems. 
 
-This vault is designed to bridge the gap between abstract architectural concepts and concrete, language-specific implementations (TypeScript, Go, Java) while integrating modern AI-driven design workflows.
+This repository bridges the gap between abstract architectural concepts and concrete, production-ready implementations in **Java**, **Go**, and **TypeScript**.
 
----
-
-## 🏛️ The Architecture Vault
-
-### 🌐 [High-Level Design (HLD)](./hld/)
-*Focus: Distributed Systems, Scalability, and Platform Architecture.*
-- [HLD Master Roadmap](./hld/HLD_MASTER_ROADMAP.md)
-- [System Design Delivery Framework](./hld/HLD_DELIVERY_FRAMEWORK.md)
-- [2025 HLD SDE-2+ Master Guide](./hld/2025_HLD_SDE2_MASTER_GUIDE.md)
-
-### 🧩 [Low-Level Design (LLD)](./lld/)
-*Focus: Object-Oriented Principles, Design Patterns, and Machine Coding.*
-- [2025 LLD Master Guide](./lld/2025_LLD_INTERVIEW_MASTER_GUIDE.md)
-- SOLID Principles & OOP Foundations
-- Design Patterns (Creational, Structural, Behavioral)
-- [Senior LLD Practice](./lld/SENIOR_LLD_PRACTICE.md)
-
-### 🎭 [Behavioral Mastery OS](./behavioral/)
-*Focus: Strategic Storytelling, Leadership Principles, and Soft Skills.*
-- [Master Story Templates](./behavioral/STORY_BANK_TEMPLATES.md)
-- [Amazon Leadership Principle (LP) Matrix](./behavioral/AMAZON_LP_MATRIX.md)
-- [Master Question Bank (45 Questions)](./behavioral/QUESTION_BANK.md)
+This repository serves as a master reference for tackling complex engineering challenges, passing grueling system design interviews, and mastering the fundamentals of scalable architecture.
 
 ---
 
-## ⚡ Core Insights & Language Mastery
-A deep dive into language-specific internals, performance optimizations, and idiomatic patterns:
-- [**TypeScript/Node.js**](./core-insights/typescript/): Event loop mastery, Type-safety at scale, and NestJS patterns.
-- [**Go**](./core-insights/go/): Concurrency primitives, Memory management, and High-performance microservices.
-- [**Java**](./core-insights/java/): JVM tuning, Spring Boot architecture, and Reactive programming.
+## 📂 Vault Architecture & Directory Structure
 
-## 🤖 Prompt Engineering for Design
-Structured prompts and workflows to leverage AI for:
-- [**Architecture Review**](./prompts/design-review/): Finding bottlenecks and single points of failure.
-- [**Code Generation & LLD**](./prompts/code-generation/): Generating SOLID-compliant boilerplate and patterns.
+The repository is organized into five core pillars:
 
+### 1. 🌐 [High-Level Design (HLD)](./hld/)
+*Mastering Distributed Systems, Scalability, and Platform Architecture.*
+- **System Design Fundamentals:** Networking, Load Balancing, Caching, and Databases.
+- **Advanced Architecture:** Microservices, Event-Driven Architecture, Multi-Region scaling.
+- **Case Studies:** Real-world system design breakdowns (e.g., WhatsApp).
+- **Frameworks:** [System Design Delivery Framework](./hld/HLD_DELIVERY_FRAMEWORK.md) and the [HLD Master Roadmap](./hld/HLD_MASTER_ROADMAP.md).
+
+### 2. 🧩 [Low-Level Design (LLD)](./lld/)
+*Mastering Object-Oriented Programming (OOP), Design Patterns, and Machine Coding.*
+- **Foundations & SOLID Principles:** Writing clean, maintainable, and decoupled code.
+- **Design Patterns:** Comprehensive guides with code examples for Creational, Structural, and Behavioral patterns.
+- **Machine Coding Guides:** Best practices and structures for timed coding rounds.
+- **Resources:** [2025 LLD Master Guide](./lld/2025_LLD_INTERVIEW_MASTER_GUIDE.md) and [Senior LLD Practice](./lld/SENIOR_LLD_PRACTICE.md).
+
+### 3. ⚡ [Core Insights & Language Mastery](./core-insights/)
+*Language-specific internals, performance optimizations, and idiomatic engineering.*
+- [**TypeScript / Node.js**](./core-insights/typescript/): Event loop mastery and Type-safety at scale.
+- [**Go**](./core-insights/go/): Concurrency primitives and high-performance execution.
+- [**Java**](./core-insights/java/): JVM tuning, modern frameworks, and ecosystem best practices.
+
+### 4. 🎭 [Behavioral Mastery OS](./behavioral/)
+*Strategic Storytelling, Leadership Principles, and Soft Skills for FAANG interviews.*
+- **Frameworks:** STAR method templates and storytelling structures.
+- **Amazon Leadership Principles:** The comprehensive [Amazon LP Matrix](./behavioral/AMAZON_LP_MATRIX.md).
+- **Question Banks:** Top behavioral questions asked by top-tier tech companies.
+
+### 5. 🤖 [Prompt Engineering for Design](./prompts/)
+*Leveraging AI (LLMs) to accelerate engineering workflows.*
+- **Code Generation:** Generating SOLID-compliant boilerplate.
+- **Architecture Review:** Analyzing systems for bottlenecks and single points of failure.
 
 ---
 
-### 🚀 Founding Engineer Track
-For those aiming for **Early-stage startups** or **Lead roles**, focus on:
-- **Scalability**: Designing for 10k+ concurrent users from day one.
-- **Reliability**: Transactional Outbox & Adaptive Load Shedding.
-- **AI Integration**: Semantic Caching & Agent Tool Registries.
+## 🎯 Who is this for?
+- **SDE-1 to SDE-2 Transitions:** Developers looking to build strong architectural foundations.
+- **Senior Engineers & Tech Leads:** Professionals preparing for grueling System Design and Machine Coding rounds at top tech companies.
+- **Founding Engineers:** Start-up engineers designing for 10k+ concurrent users from day one, focusing on reliability and scalability.
+
+## 🤝 How to Use This Repository
+1. Start with the **Roadmaps** located in the root of the `lld` and `hld` folders.
+2. Read through the core theoretical concepts.
+3. Review the code implementations inside the specific language folders (Java, Go, TypeScript).
+4. Use the **Behavioral Mastery** guides simultaneously to prepare your past experiences.
 
 ---
 
 > **"Don't just solve problems. Design systems that outlast them."**
-

@@ -151,7 +151,24 @@ Abstract Factory allows you to test your business logic (`Application.java`) in 
 
 ---
 
-## 🎭 5. Junior vs. Senior Implementation
+## 🧩 5. Abstract Factory vs. SOLID Principles (The Senior Perspective)
+
+The Abstract Factory pattern strongly aligns with the SOLID principles, specifically focusing on abstracting dependencies and enforcing consistency.
+
+- **S - Single Responsibility Principle (SRP): ✅ Adheres**
+  Extracts the product creation code into a single, cohesive place (the factory), leaving the client to focus solely on business logic.
+- **O - Open/Closed Principle (OCP): ⚠️ Mixed**
+  Adding a *new variant* (e.g., a `LinuxFactory` family) is perfectly compliant—you just create a new factory class without touching existing code. However, adding a *new product type* (e.g., adding `createScrollbar()`) forces you to modify the main interface and *all* existing concrete factories, violating OCP.
+- **L - Liskov Substitution Principle (LSP): ✅ Adheres**
+  Clients only use the generic interfaces (like `IGUIFactory`, `IButton`). Any concrete factory or product can be substituted seamlessly.
+- **I - Interface Segregation Principle (ISP): ⚠️ Can Violate**
+  If the `IGUIFactory` interface defines 20 creation methods and some clients only need a `Button`, the interface is too "fat".
+- **D - Dependency Inversion Principle (DIP): ✅ Adheres**
+  This pattern is a textbook example of DIP. The client depends exclusively on high-level abstractions (`IGUIFactory`, `IButton`), completely decoupling it from concrete implementations.
+
+---
+
+## 🎭 6. Junior vs. Senior Implementation
 
 | Feature | Junior Developer | Senior Developer |
 |---|---|---|
@@ -162,7 +179,7 @@ Abstract Factory allows you to test your business logic (`Application.java`) in 
 
 ---
 
-## 🏢 5. Real-World System Design
+## 🏢 7. Real-World System Design
 
 1.  **JDBC (Java Database Connectivity)**:
     Each database driver (MySQL, PostgreSQL, Oracle) is essentially a concrete factory. They all implement the same interfaces (`Connection`, `Statement`, `ResultSet`), ensuring that if you use a MySQL Connection, you get MySQL-compatible Statements.
@@ -173,7 +190,7 @@ Abstract Factory allows you to test your business logic (`Application.java`) in 
 
 ---
 
-## 🧠 6. FAANG Interview Q&A
+## 🧠 8. FAANG Interview Q&A
 
 **Q: What is the main difference between Factory Method and Abstract Factory?**
 * **Factory Method**: Focuses on producing **one** type of product. It uses inheritance to let subclasses decide which product to instantiate.
@@ -212,7 +229,7 @@ Abstract Factory allows you to test your business logic (`Application.java`) in 
 
 ---
 
-## 🌍 7. Cross-Language: Abstract Factory
+## 🌍 9. Cross-Language: Abstract Factory
 
 ### 🐍 Python
 In Python, we don't need interfaces. We can just pass the Factory class as a reference.

@@ -77,7 +77,26 @@ class OrderService {
 
 ---
 
-## 🔬 3. The 4 Evolutionary Stages
+## 🧩 3. Singleton vs. SOLID Principles (The Senior Perspective)
+
+The Singleton pattern is often criticized because it notoriously **violates** several SOLID principles when used naively. A Senior Engineer must understand this paradox:
+
+- **S - Single Responsibility Principle (SRP): ❌ Violates**
+  A classic Singleton does *two* things: it manages its own lifecycle (creation and restriction) AND performs its actual business logic. (Solution: Use Dependency Injection to externalize lifecycle management).
+- **O - Open/Closed Principle (OCP): ❌ Violates**
+  If classes tightly couple themselves to `Database.getInstance()`, you cannot extend the `Database` behavior (e.g., swapping to a `TestDatabase` or `InMemoryDatabase`) without modifying the calling code.
+- **L - Liskov Substitution Principle (LSP): ⚠️ Difficult**
+  Singletons are notoriously hard to subclass. The `getInstance()` method is static, and static methods cannot be polymorphically overridden in Java.
+- **I - Interface Segregation Principle (ISP): ✅ Unaffected**
+  Singleton doesn't directly impact interface design.
+- **D - Dependency Inversion Principle (DIP): ❌ Violates**
+  Consumers depend on a concrete implementation rather than an abstraction. Calling `Logger.getInstance()` creates a hard-coded dependency instead of relying on an `ILogger` interface being injected.
+
+**The Fix:** Modern architecture solves these SOLID violations by moving the "Singleton" responsibility to a framework (like Spring) and injecting the dependency as an interface.
+
+---
+
+## 🔬 4. The 4 Evolutionary Stages
 
 ### Stage 1a: Naive Lazy Init — ❌ Thread Unsafe
 ```java
@@ -159,7 +178,7 @@ Stage4EnumSingleton.INSTANCE.processPayment(100.0);
 
 ---
 
-## 🎭 4. Junior vs. Senior Comparison
+## 🎭 5. Junior vs. Senior Comparison
 
 | Concern | Junior | Senior |
 |---|---|---|
@@ -171,7 +190,7 @@ Stage4EnumSingleton.INSTANCE.processPayment(100.0);
 
 ---
 
-## 🏢 5. Real-World System Design Uses
+## 🏢 6. Real-World System Design Uses
 
 | System | How Singleton Appears |
 |---|---|
@@ -183,7 +202,7 @@ Stage4EnumSingleton.INSTANCE.processPayment(100.0);
 
 ---
 
-## 🧠 6. FAANG Interview Q&A
+## 🧠 7. FAANG Interview Q&A
 
 **Q: Can you break a Singleton with Java Reflection?**
 ```java
@@ -219,7 +238,7 @@ protected Object readResolve() {
 
 ---
 
-## 🌍 7. Cross-Language: Singleton in Python, TypeScript, and Go
+## 🌍 8. Cross-Language: Singleton in Python, TypeScript, and Go
 
 ### 🐍 Python
 
@@ -347,7 +366,7 @@ func GetGateway() *PaymentGateway {
 
 ---
 
-## 📚 8. Further Reading / Patterns Linked
+## 📚 9. Further Reading / Patterns Linked
 
 - **Singleton + Factory Method** → The factory itself is often a Singleton (see `07-Combined-Patterns`)
 - **Singleton + Abstract Factory** → One platform factory per runtime (see `07-Combined-Patterns`)

@@ -52,7 +52,24 @@ graph TD
 
 ---
 
-## 🎭 4. Junior vs. Senior Implementation
+## 🧩 4. Prototype vs. SOLID Principles (The Senior Perspective)
+
+The Prototype pattern has a nuanced relationship with SOLID principles, primarily functioning as a workaround for instantiation complexities rather than a pure architectural structural pattern.
+
+- **S - Single Responsibility Principle (SRP): ⚠️ Can Violate**
+  A class implementing a `clone()` method takes on the additional responsibility of knowing how to copy its own internal state, mixing business logic with instantiation logic.
+- **O - Open/Closed Principle (OCP): ✅ Adheres**
+  You can introduce new prototype variants dynamically at runtime without modifying the client code. A client just clones the interface it holds.
+- **L - Liskov Substitution Principle (LSP): ✅ Adheres**
+  As long as a subclass correctly implements its own `clone()` behavior to return a valid instance of the same interface, clients can interchangeably clone base classes or subclasses.
+- **I - Interface Segregation Principle (ISP): ✅ Unaffected**
+  The `Cloneable` or `Prototype` interface is usually minimal and highly segregated.
+- **D - Dependency Inversion Principle (DIP): ✅ Adheres**
+  Clients depend on the `Prototype` abstraction instead of concrete classes for object creation. They don't need to call `new ConcretePrototype()`.
+
+---
+
+## 🎭 5. Junior vs. Senior Implementation
 
 | Feature | Junior Developer | Senior Developer |
 |---|---|---|
@@ -63,7 +80,7 @@ graph TD
 
 ---
 
-## 🏢 5. Real-World System Design
+## 🏢 6. Real-World System Design
 
 1.  **Game Engines (Unity/Unreal)**:
     "Prefabs" are essentially prototypes. When you "Spawn" an enemy, you are cloning a prefab prototype.
@@ -76,7 +93,7 @@ graph TD
 
 ---
 
-## 🚀 6. Advanced Edge Cases (SDE-2+)
+## 🚀 7. Advanced Edge Cases (SDE-2+)
 
 ### 6.1 The Serialization Hack (The Modern Deep Copy)
 Writing manual copy constructors for an object graph with 15 nested levels is brutal, tedious, and error-prone. 
@@ -86,13 +103,13 @@ Writing manual copy constructors for an object graph with 15 nested levels is br
 If `Object A` has a reference to `Object B`, and `Object B` has a reference back to `Object A`, a standard recursive deep copy will trigger an infinite loop, crashing your application with a `StackOverflowError`.
 **The Senior Fix:** When performing a complex deep copy, you must pass an `IdentityHashMap<Object, Object> visited` map through your copy constructors. Before cloning an object, you check if it exists in the `visited` map. If it does, you return the already-cloned reference instead of recursing again.
 
-### 6.3 Immutability: The Ultimate Prototype Killer
+### 8.3 Immutability: The Ultimate Prototype Killer
 The only reason the Prototype pattern exists is so that we can safely *modify* a copy without affecting the original.
 **The Senior Rule:** If your object is perfectly **Immutable** (like Java's `String`), you *never* need the Prototype pattern. You can simply pass the exact same reference around safely. In modern architecture, converting a complex mutable object into an immutable one is often the ultimate fix that eliminates the need for cloning altogether.
 
 ---
 
-## 🧠 7. FAANG Interview Q&A
+## 🗣️ 9. FAANG Interview Q&A
 
 **Q: Why is Java's `Cloneable` considered a mistake?**
 * **A:** It’s a marker interface without a `clone()` method. It forces you to deal with `CloneNotSupportedException` and doesn't enforce deep cloning of final fields.
@@ -105,14 +122,14 @@ The only reason the Prototype pattern exists is so that we can safely *modify* a
 
 ---
 
-## ✅ 8. SDE-2+ Readiness Check
+## ✅ 10. SDE-2+ Readiness Check
 *   [ ] Can you explain why Java's `Cloneable` is considered a mistake?
 *   [ ] What is the difference between a Shallow Copy and a Deep Copy?
 *   [ ] How does a Prototype Registry improve system performance?
 
 ---
 
-## 🧠 9. Tracker Integration
+## 🎯 11. Tracker Integration
 
 *   **Trigger Phrases:** "Clone/Copy an existing object", "Expensive object creation", "Avoid 'new' keyword for similar objects", "Copy-Paste-Modify pattern".
 *   **SOLID Connection:** Primarily addresses **SRP** by keeping the cloning logic inside the object itself, rather than forcing the client to manually copy fields.

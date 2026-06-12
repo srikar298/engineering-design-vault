@@ -84,7 +84,24 @@ classDiagram
 
 ---
 
-## 🎭 4. Junior vs. Senior Implementation
+## 🧩 4. Builder vs. SOLID Principles (The Senior Perspective)
+
+The Builder pattern excels at adhering to the Single Responsibility Principle, cleanly separating the construction logic of a complex object from the object itself.
+
+- **S - Single Responsibility Principle (SRP): ✅ Adheres**
+  This is the primary SOLID benefit of the Builder. The complex configuration and initialization logic is completely removed from the product class (which focuses on its business logic) and isolated in a dedicated `Builder` class.
+- **O - Open/Closed Principle (OCP): ✅ Adheres**
+  You can introduce new builders (e.g., `CarBuilder`, `TruckBuilder`) or new steps in an existing builder without modifying existing client code that consumes the `Builder` interface.
+- **L - Liskov Substitution Principle (LSP): ✅ Unaffected**
+  Doesn't directly impact class hierarchies unless using abstract builders, in which case clients can substitute concrete builders seamlessly.
+- **I - Interface Segregation Principle (ISP): ✅ Unaffected**
+  You can design specific builder interfaces so clients only see the construction steps they care about.
+- **D - Dependency Inversion Principle (DIP): ✅ Adheres**
+  If the director relies on an abstract `Builder` interface rather than a concrete builder, high-level orchestration is decoupled from low-level construction details.
+
+---
+
+## 🎭 5. Junior vs. Senior Implementation
 
 | Feature | Junior Developer | Senior Developer |
 |---|---|---|
@@ -95,7 +112,7 @@ classDiagram
 
 ---
 
-## 🏢 5. Real-World System Design
+## 🏢 6. Real-World System Design
 
 1.  **Java `StringBuilder` / `StringBuffer`**:
     The most famous example. It builds a `String` (which is immutable) through a mutable buffer.
@@ -108,9 +125,9 @@ classDiagram
 
 ---
 
-## 🚀 6. Advanced Edge Cases (SDE-2+)
+## 🚀 7. Advanced Edge Cases (SDE-2+)
 
-### 6.1 The Step Builder Pattern (Compile-Time Safety)
+### 7.1 The Step Builder Pattern (Compile-Time Safety)
 A standard Fluent Builder allows `.build()` to be called at any time, which might result in a runtime exception if a mandatory field was missed. The **Step Builder Pattern** uses a chain of distinct interfaces to force the developer to set mandatory fields in a specific order at compile time.
 ```java
 // Interface chain enforces order
@@ -124,7 +141,7 @@ public interface BuildPhase {
 Computer pc = Computer.stepBuilder().setCPU("i7").setRAM("16GB").build();
 ```
 
-### 6.2 Builder with Inheritance (CRTP)
+### 7.2 Builder with Inheritance (CRTP)
 When dealing with inheritance (e.g., `VehicleBuilder` and `CarBuilder extends VehicleBuilder`), calling a base class method `.setWheels(4)` returns a `VehicleBuilder`. This breaks fluent chaining because you can no longer call a `Car`-specific method like `.setSunroof()`.
 **The Senior Fix:** Use the **Curiously Recurring Template Pattern (CRTP)** with Java Generics.
 ```java
@@ -145,18 +162,18 @@ class CarBuilder extends VehicleBuilder<CarBuilder> {
 new CarBuilder().setWheels(4).setSunroof(true).build();
 ```
 
-### 6.3 Lombok `@Builder` Production Reality
+### 7.3 Lombok `@Builder` Production Reality
 In modern Java, you rarely write builders manually; you use Lombok. However, seniors know these edge cases:
 - **`@Builder.Default`:** If you initialize a field like `private int cores = 4;` and use `@Builder`, Lombok will ignore your default and set it to `0` if not explicitly provided. You must annotate it with `@Builder.Default`.
 - **`toBuilder = true`:** Adding `@Builder(toBuilder = true)` generates a `.toBuilder()` method on the instance. This creates a new builder initialized with the existing object's state—an elegant way to safely "copy and modify" an immutable object.
 
-### 6.4 Thread-Safety: Builder vs. Built Object
+### 7.4 Thread-Safety: Builder vs. Built Object
 While the final product (`Computer`) is deeply immutable and completely thread-safe, **the `Builder` instance itself is highly mutable and NOT thread-safe**. 
 - **Rule:** A Builder instance must be strictly confined to local method scope. Never store a Builder as a class field or share it across multiple threads.
 
 ---
 
-## 🧠 7. FAANG Interview Q&A
+## 🗣️ 8. FAANG Interview Q&A
 
 **Q: When should I use Builder instead of just a Constructor?**
 * **A:** Rule of thumb: If there are more than 4 parameters, or if many parameters are optional, or if the object must be immutable.
@@ -169,14 +186,14 @@ While the final product (`Computer`) is deeply immutable and completely thread-s
 
 ---
 
-## ✅ 8. SDE-2+ Readiness Check
+## ✅ 9. SDE-2+ Readiness Check
 *   [ ] Why is the Builder usually implemented as a static inner class?
 *   [ ] Where should the validation logic reside (the constructor or the `.build()` method)?
 *   [ ] How does the "Director" class differ from the "Fluent Builder" approach?
 
 ---
 
-## 🧠 9. Tracker Integration
+## 🎯 10. Tracker Integration
 
 *   **Trigger Phrases:** "Complex object construction", "Step-by-step creation", "Telescoping constructor", "Immutable object with many fields", "Fluent API".
 *   **SOLID Connection:** Primarily addresses **SRP** (isolates building logic from the product class).

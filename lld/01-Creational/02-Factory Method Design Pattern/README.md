@@ -98,7 +98,24 @@ The Client (`Main.java`) never calls `new` on the product directly, nor does it 
 
 ---
 
-## 🎭 4. Junior vs. Senior Implementation
+## 🧩 4. Factory Method vs. SOLID Principles (The Senior Perspective)
+
+The Factory Method pattern is a fundamental enabler for SOLID principles, specifically OCP and SRP.
+
+- **S - Single Responsibility Principle (SRP): ✅ Adheres**
+  It delegates the responsibility of *instantiating* an object away from the class that *uses* it. The creator class only creates; the client class only consumes.
+- **O - Open/Closed Principle (OCP): ✅ Adheres**
+  This is the pattern's superpower. You can introduce new product types into the program without breaking existing client code (you just add a new `ConcreteCreator` and `ConcreteProduct`).
+- **L - Liskov Substitution Principle (LSP): ✅ Adheres**
+  As long as all `ConcreteProducts` strictly adhere to the `Product` interface contracts, clients can blindly substitute them.
+- **I - Interface Segregation Principle (ISP): ✅ Unaffected**
+  Depends on how the `Product` interface is designed, but the pattern itself doesn't force fat interfaces.
+- **D - Dependency Inversion Principle (DIP): ✅ Adheres**
+  Clients depend on the abstract `Creator` and `Product` interfaces, completely decoupling them from concrete classes.
+
+---
+
+## 🎭 5. Junior vs. Senior Implementation
 
 | Feature | Junior Developer | Senior Developer |
 |---|---|---|
@@ -108,7 +125,7 @@ The Client (`Main.java`) never calls `new` on the product directly, nor does it 
 
 ---
 
-## 🏢 5. Real-World System Design
+## 🏢 6. Real-World System Design
 
 The Factory Method pattern is overwhelmingly common in frameworks and libraries where the framework defines the *wiring* but the developer defines the *products*.
 
@@ -121,7 +138,7 @@ The Factory Method pattern is overwhelmingly common in frameworks and libraries 
 
 ---
 
-## 🧠 6. FAANG Interview Q&A
+## 🧠 7. FAANG Interview Q&A
 
 **Q: What is the exact difference between Simple Factory, Factory Method, and Abstract Factory?**
 * **Simple Factory**: A single class with an `if/else` block creating products. Not an official GoF pattern. Violates OCP.
@@ -161,7 +178,7 @@ The Factory Method pattern is overwhelmingly common in frameworks and libraries 
 
 ---
 
-## 🌍 7. Cross-Language: Factory Method in Python, TypeScript, and Go
+## 🌍 8. Cross-Language: Factory Method in Python, TypeScript, and Go
 
 ### 🐍 Python
 Because Python classes are first-class objects (you can pass the class itself as a variable), the Factory Method pattern is rarely needed in Python. You just pass the class you want to instantiate!

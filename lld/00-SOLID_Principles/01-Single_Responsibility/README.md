@@ -58,18 +58,18 @@ Consider an `InvoiceService`:
 Check these Java examples for a practical deep dive into SRP violations and their refactored counterparts:
 
 ### 🔰 Level 1: User Management (Basic God Class)
-- ☣️ **Violation**: [UserViolation.java](UserViolation.java) (Class mix: Logic + Persistence + Logging)
-- ✅ **Refactored**: [UserRefactored.java](UserRefactored.java)
+- ☣️ **Violation**: [UserViolation.java](01-User_Management/UserViolation.java) (Class mix: Logic + Persistence + Logging)
+- ✅ **Refactored**: [UserRefactored.java](01-User_Management/UserRefactored.java)
 - **Stakeholders**: Finance vs. Infra vs. Security.
 
 ### 🥈 Level 2: Invoice Processing (The Dependency Trap)
-- ☣️ **Violation**: [InvoiceViolation.java](InvoiceViolation.java) (Class mix: Tax Logic + PDF Rendering)
-- ✅ **Refactored**: [InvoiceRefactored.java](InvoiceRefactored.java)
+- ☣️ **Violation**: [InvoiceViolation.java](02-Invoice_Processing/InvoiceViolation.java) (Class mix: Tax Logic + PDF Rendering)
+- ✅ **Refactored**: [InvoiceRefactored.java](02-Invoice_Processing/InvoiceRefactored.java)
 - **Stakeholders**: Finance (Tax Rules) vs. Product/UX (Branding/Layout).
 
 ### 🥇 Level 3: Payment Orchestration (Complex/Multi-Stakeholder)
-- ☣️ **Violation**: [PaymentViolation.java](PaymentViolation.java) (Class mix: Risk + Provider + Audit)
-- ✅ **Refactored**: [PaymentRefactored.java](PaymentRefactored.java)
+- ☣️ **Violation**: [SRPPaymentViolation.java](03-Payment_Orchestration/SRPPaymentViolation.java) (Class mix: Risk + Provider + Audit)
+- ✅ **Refactored**: [SRPPaymentRefactored.java](03-Payment_Orchestration/SRPPaymentRefactored.java)
 - **Stakeholders**: Risk (Validation), Finance (Processor), Compliance (Audit).
 
 ---
@@ -86,6 +86,7 @@ Check these Java examples for a practical deep dive into SRP violations and thei
 Don't be a "Design Pattern Zealot."
 - **Small Systems**: If the system is tiny and unlikely to grow, over-splitting increases "Mental Overhead" for no benefit.
 - **Natural Grouping**: If two pieces of data always change together and are always used together, they might belong in the same "Information Expert" class.
+- **Code Example**: [SRPPragmatic.java](04-Pragmatic_Example/SRPPragmatic.java) - Sometimes a single class is perfectly fine for cohesive operations in smaller contexts.
 
 ### 3. Transactional Integrity (The Edge Case)
 When you split a class (e.g., `PaymentService` into `AccountDebiter` and `OrderUpdater`), you face a new problem: **Atomicity**.

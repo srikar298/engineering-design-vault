@@ -38,16 +38,16 @@ class AuditService {
 public class SRPPaymentRefactored {
     private final SRPPaymentValidator validator = new SRPPaymentValidator();
     private final SRPPaymentProcessor processor = new SRPPaymentProcessor();
-    private final AuditService auditer = new AuditService();
+    private final AuditService auditor = new AuditService();
 
     public void handle(String card, double amount) {
         if (!validator.isValid(card)) {
-            auditer.log("FRAUD ALERT: Invalid card attempt.");
+            auditor.log("FRAUD ALERT: Invalid card attempt.");
             return;
         }
 
         processor.charge(amount, card);
-        auditer.log("SUCCESS: Payment completed.");
+        auditor.log("SUCCESS: Payment completed.");
     }
 
     public static void main(String[] args) {

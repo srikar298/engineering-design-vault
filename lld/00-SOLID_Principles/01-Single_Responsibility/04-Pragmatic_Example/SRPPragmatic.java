@@ -1,4 +1,4 @@
-package single_responsibility;
+
 
 /**
  * <h1>SRP: The "Stakeholder" Principle (SDE-2+ Level)</h1>
